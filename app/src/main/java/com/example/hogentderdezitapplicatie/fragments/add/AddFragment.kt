@@ -43,7 +43,7 @@ class AddFragment : Fragment() {
 
         if(inputCheck(firstName, lastName, avatar)){
             // Create User Object
-            val user = User(0, firstName, lastName,avatar.toString())
+            val user = User(0, firstName, lastName,Integer.parseInt(avatar.toString()))
             // Add Data to Database
             mUserViewModel.addUser(user)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()

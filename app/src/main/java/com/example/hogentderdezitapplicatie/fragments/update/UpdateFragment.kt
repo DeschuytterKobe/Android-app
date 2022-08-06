@@ -1,12 +1,11 @@
 package com.example.hogentderdezitapplicatie.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -33,20 +32,24 @@ class UpdateFragment : Fragment() {
         mUserViewModel= ViewModelProvider(this).get(UserViewModel::class.java)
         view.updateFirstName_et.setText(args.currentUser.firstName)
         view.updateLastName_et.setText(args.currentUser.lastName)
-        view.updateAvatar.setText(args.currentUser.avatar)
+        //view.updateAvatar.setText(args.currentUser.avatar)
 
         view.update_btn.setOnClickListener{
-
+            updateItem()
         }
+
+        // Add menu
+        setHasOptionsMenu(true)
         return view
+
     }
 
     private fun updateItem(){
         val firstName = updateFirstName_et.text.toString()
         val lastName = updateLastName_et.text.toString()
-        val avatar = updateAvatar.text
+        val avatar = Integer.parseInt(updateAvatar.text.toString())
 
-        if(inputCheck(firstName,lastName,avatar)){
+        if(inputCheck(firstName,lastName,updateAvatar.text)){
             val updatedUser = User(args.currentUser.id,firstName,lastName,avatar)
 
             mUserViewModel.updateUser(updatedUser)
@@ -55,11 +58,39 @@ class UpdateFragment : Fragment() {
 
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
 
-        }
+        }else
+            Toast.makeText(requireContext(),"please fill in everything",Toast.LENGTH_SHORT).show()
     }
 
     private fun inputCheck(firstName: String, lastName: String, avatar: Editable): Boolean{
         return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && avatar.isEmpty())
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menu_delete){
+            deleteUser()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteUser(){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("yes"){
+            _,_ -> mUserViewModel.deleteUser(args.currentUser)
+            Toast.makeText(requireContext(),"Succesfully removed: ${args.currentUser.firstName}",Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("no"){
+                _,_ ->
+
+        }
+        builder.setTitle("Delete ${args.currentUser.firstName}?")
+        builder.setMessage("Are you sure you want to delete ${args.currentUser.firstName}?")
+        builder.create().show(
+
+        )
+    }
 }
