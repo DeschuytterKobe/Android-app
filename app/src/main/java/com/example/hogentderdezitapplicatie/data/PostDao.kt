@@ -12,7 +12,7 @@ import com.example.hogentderdezitapplicatie.model.User
 interface PostDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addPost(post: Post)
+    fun addPost(post: Post)
 
     @Query("SELECT * FROM post_table ORDER BY id ASC")
     fun readAllPosts(): LiveData<List<Post>>

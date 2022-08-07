@@ -11,7 +11,7 @@ class Post (
 
         @PrimaryKey(autoGenerate = true)
         val id:Int,
-        val userId: Int,
+//        val userId: Int,
         val title: String,
         val description : String,
         val link : String,

@@ -12,18 +12,18 @@ import kotlinx.coroutines.launch
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<Post>>
-    private val repository : PostRepository
+    val readAllPostData: LiveData<List<Post>>
+    private val pRepository : PostRepository
 
     init {
         val postDao = PostDatabase.getDatabase(application).postDao()
-        repository = PostRepository(postDao)
-        readAllData = repository.readAllPosts
+        pRepository = PostRepository(postDao)
+        readAllPostData = pRepository.readAllPosts
     }
 
     fun addPost(post: Post){
         viewModelScope.launch(Dispatchers.IO){
-            repository.addPost(post)
+            pRepository.addPost(post)
         }
     }
 }
