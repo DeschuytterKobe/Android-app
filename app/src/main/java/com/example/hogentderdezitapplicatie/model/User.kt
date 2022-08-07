@@ -15,4 +15,5 @@ data class User(
     val lastName: String,
     val avatar: Int,
 
+
     ) : Parcelable
