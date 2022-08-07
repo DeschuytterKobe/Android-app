@@ -1,4 +1,4 @@
-package com.example.hogentderdezitapplicatie.fragments.update
+package com.example.hogentderdezitapplicatie.fragments.users.update
 
 import android.app.AlertDialog
 import android.os.Bundle

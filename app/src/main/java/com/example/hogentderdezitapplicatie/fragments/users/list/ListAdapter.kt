@@ -1,4 +1,4 @@
-package com.example.hogentderdezitapplicatie.fragments.list
+package com.example.hogentderdezitapplicatie.fragments.users.list
 
 import android.view.LayoutInflater
 import android.view.View

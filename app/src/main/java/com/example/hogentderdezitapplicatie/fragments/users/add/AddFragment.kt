@@ -1,4 +1,4 @@
-package com.example.hogentderdezitapplicatie.fragments.add
+package com.example.hogentderdezitapplicatie.fragments.users.add
 
 import android.os.Bundle
 import android.text.Editable

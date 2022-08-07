@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-    <androidx.constraintlayout.widget.ConstraintLayout tools:context=".fragments.add.AddFragment" android:padding="24dp" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout tools:context=".fragments.users.add.AddFragment" android:padding="24dp" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditText android:layout_height="wrap_content" android:layout_width="match_parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent" android:inputType="textPersonName" android:hint="First Name" android:ems="10" android:layout_marginTop="100dp" android:id="@+id/addFirstName_et"/>
 
