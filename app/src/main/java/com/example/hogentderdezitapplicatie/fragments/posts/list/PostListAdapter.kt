@@ -3,6 +3,7 @@ package com.example.hogentderdezitapplicatie.fragments.posts.list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.model.Post
@@ -27,11 +28,11 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>()
         holder.itemView.postTitle_txt.text = currentItem.title
         holder.itemView.postDescription_txt.text = currentItem.description
         holder.itemView.postLink_txt.text= currentItem.link
-//        actionListFragmentToUpdateFragment
-//        holder.itemView.postRowLayout.setOnClickListener{
-//            val action = PostListFragmentDirections.ac(currentItem)
-//            holder.itemView.findNavController().navigate(action)
-//        }
+
+        holder.itemView.postRowLayout.setOnClickListener{
+            val action = PostListFragmentDirections.actionPostListFragment2ToPostUpdateFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     fun setData(post: List<Post>){

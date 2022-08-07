@@ -3,6 +3,7 @@ package com.example.hogentderdezitapplicatie.repository
 import androidx.lifecycle.LiveData
 import com.example.hogentderdezitapplicatie.data.PostDao
 import com.example.hogentderdezitapplicatie.model.Post
+import com.example.hogentderdezitapplicatie.model.User
 
 class PostRepository(private val postDao : PostDao) {
 
@@ -10,5 +11,9 @@ class PostRepository(private val postDao : PostDao) {
 
     suspend fun addPost(post: Post){
         postDao.addPost(post)
+    }
+
+    suspend fun updatePost(post: Post){
+        postDao.updatePost(post)
     }
 }
