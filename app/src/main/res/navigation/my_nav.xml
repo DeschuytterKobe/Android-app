@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/postListFragment2">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/listFragment"
@@ -78,7 +78,20 @@
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.hogentderdezitapplicatie.LoginFragment"
+        android:name="com.example.hogentderdezitapplicatie.fragments.users.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_postListFragment2"
+            app:destination="@id/postListFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/postOpenFragment"
+        android:name="com.example.hogentderdezitapplicatie.fragments.posts.open.PostOpenFragment"
+        android:label="fragment_post_open"
+        tools:layout="@layout/fragment_post_open" >
+        <argument
+            android:name="openCurrentPost"
+            app:argType="com.example.hogentderdezitapplicatie.model.Post" />
+    </fragment>
 </navigation>
