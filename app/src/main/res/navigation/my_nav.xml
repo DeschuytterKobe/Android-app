@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/postListFragment2"
         android:name="com.example.hogentderdezitapplicatie.fragments.posts.list.PostListFragment"
-        android:label="fragment_post_list"
+        android:label="Posts"
         tools:layout="@layout/fragment_post_list" >
         <action
             android:id="@+id/action_postListFragment2_to_addPostFragment"
@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/addPostFragment"
         android:name="com.example.hogentderdezitapplicatie.fragments.posts.add.addPostFragment"
-        android:label="fragment_add_post"
+        android:label="Add Post"
         tools:layout="@layout/fragment_add_post" >
         <action
             android:id="@+id/action_addPostFragment_to_postListFragment2"
@@ -62,7 +62,7 @@
     <fragment
         android:id="@+id/postUpdateFragment"
         android:name="com.example.hogentderdezitapplicatie.fragments.posts.update.PostUpdateFragment"
-        android:label="post_update"
+        android:label="Update Post"
         tools:layout="@layout/fragment_post_update" >
         <argument
             android:name="openCurrentPost"
@@ -81,7 +81,7 @@
     <fragment
         android:id="@+id/postOpenFragment"
         android:name="com.example.hogentderdezitapplicatie.fragments.posts.open.PostOpenFragment"
-        android:label="fragment_post_open"
+        android:label="Post"
         tools:layout="@layout/fragment_post_open" >
         <argument
             android:name="openCurrentPost"
