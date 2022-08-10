@@ -36,7 +36,7 @@ class ListFragment : Fragment() {
 
         // UserViewModel
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
+        mUserViewModel.users.observe(viewLifecycleOwner, Observer { user ->
             adapter.setData(user)
         })
 

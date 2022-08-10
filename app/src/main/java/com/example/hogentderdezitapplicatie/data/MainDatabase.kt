@@ -5,17 +5,20 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.hogentderdezitapplicatie.model.Post
+import com.example.hogentderdezitapplicatie.model.User
 
-@Database(entities = [Post::class], version=1, exportSchema = false)
-abstract class PostDatabase : RoomDatabase() {
+@Database(entities = [Post::class, User::class], version=2, exportSchema = false)
+abstract class MainDatabase : RoomDatabase() {
 
-    abstract  fun postDao(): PostDao
+    abstract val postDao : PostDao
+    abstract val userDao : UserDao
+
 
     companion object{
         @Volatile
-        private var INSTANCE : PostDatabase?= null
+        private var INSTANCE : MainDatabase?= null
 
-        fun getDatabase(context: Context): PostDatabase{
+        fun getDatabase(context: Context): MainDatabase{
             val tempInstance = INSTANCE
             if (tempInstance!= null){
                 return tempInstance
@@ -23,8 +26,8 @@ abstract class PostDatabase : RoomDatabase() {
             synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    PostDatabase::class.java,
-                    "post_database"
+                    MainDatabase::class.java,
+                    "main_database"
                 ).build()
                 INSTANCE = instance
                 return instance

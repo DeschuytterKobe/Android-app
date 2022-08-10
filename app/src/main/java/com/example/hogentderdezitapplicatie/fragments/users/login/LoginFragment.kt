@@ -10,6 +10,7 @@ import com.example.hogentderdezitapplicatie.R
 import androidx.appcompat.app.AppCompatActivity
 import com.example.hogentderdezitapplicatie.databinding.FragmentLoginBinding
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationAPIClient
@@ -21,6 +22,7 @@ import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
 class LoginFragment : AppCompatActivity() {
@@ -34,6 +36,7 @@ class LoginFragment : AppCompatActivity() {
     private lateinit var account: Auth0
     private var cachedCredentials: Credentials? = null
     private var cachedUserProfile: UserProfile? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("in oncreate","3")
@@ -52,6 +55,15 @@ class LoginFragment : AppCompatActivity() {
         binding.buttonGet.setOnClickListener { getUserMetadata() }
         binding.buttonSet.setOnClickListener { setUserMetadata() }
     }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu)
+//        inflater?.inflate(R.menu.overflow_menu,menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return NavigationUI.onNavDestinationSelected(item!!,requireView().findNavController())||
+//                return super.onOptionsItemSelected(item)
+//    }
     private fun login() {
         Log.d("in oncreate","3")
         WebAuthProvider
@@ -70,11 +82,13 @@ class LoginFragment : AppCompatActivity() {
                     showSnackBar(getString(R.string.login_success_message, credentials.accessToken))
                     updateUI()
                     showUserProfile()
-                    findNavController().navigate(R.id.action_loginFragment_to_postListFragment2)
+
 
                 }
             })
     }
+
+
     private fun logout() {
         WebAuthProvider
             .logout(account)
@@ -195,6 +209,7 @@ class LoginFragment : AppCompatActivity() {
         if (!isLoggedIn) {
             binding.edittextCountry.setText("")
         }
+
     }
 
     private fun showSnackBar(text: String) {
