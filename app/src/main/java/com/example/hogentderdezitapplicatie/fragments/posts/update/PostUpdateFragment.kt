@@ -32,9 +32,9 @@ class PostUpdateFragment : Fragment() {
 
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
-        view.update_postTitle.setText(args.currentPost.title)
-        view.update_postDescription.setText(args.currentPost.description)
-        view.update_postLink.setText(args.currentPost.link)
+        view.update_postTitle.setText(args.openCurrentPost.title)
+        view.update_postDescription.setText(args.openCurrentPost.description)
+        view.update_postLink.setText(args.openCurrentPost.link)
 
         view.updatePost_btn.setOnClickListener{
             updatePost()
@@ -49,12 +49,12 @@ class PostUpdateFragment : Fragment() {
         val link = update_postLink.text.toString()
 
         if(inputCheck(title,description)){
-            val updatePost = Post(args.currentPost.id,title,description,link)
+            val updatePost = Post(args.openCurrentPost.id,title,description,link)
 
             mPostViewModel.updatePost(updatePost)
             Toast.makeText(requireContext(),"Updated Succesfully!",Toast.LENGTH_SHORT).show()
 
-            findNavController().navigate(R.id.action_postUpdateFragment_to_postListFragment2)
+
         }else
         {
             Toast.makeText(requireContext(),"fill in everything",Toast.LENGTH_SHORT).show()

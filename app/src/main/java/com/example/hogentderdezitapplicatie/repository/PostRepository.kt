@@ -16,4 +16,7 @@ class PostRepository(private val postDao : PostDao) {
     suspend fun updatePost(post: Post){
         postDao.updatePost(post)
     }
+    suspend fun deletePost(post: Post){
+        postDao.deletePost(post)
+    }
 }

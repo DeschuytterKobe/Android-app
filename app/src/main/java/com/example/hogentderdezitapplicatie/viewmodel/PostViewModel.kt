@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.hogentderdezitapplicatie.data.MainDatabase
 import com.example.hogentderdezitapplicatie.model.Post
+import com.example.hogentderdezitapplicatie.model.User
 import com.example.hogentderdezitapplicatie.repository.PostRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,4 +35,11 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             pRepository.updatePost(post)
         }
     }
+
+    fun deletePost(post: Post){
+        viewModelScope.launch(Dispatchers.IO){
+            pRepository.deletePost(post)
+        }
+    }
+
 }

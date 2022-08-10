@@ -30,7 +30,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>()
         holder.itemView.postLink_txt.text= currentItem.link
 
         holder.itemView.postRowLayout.setOnClickListener{
-            val action = PostListFragmentDirections.actionPostListFragment2ToPostUpdateFragment(currentItem)
+            val action = PostListFragmentDirections.actionPostListFragment2ToPostOpenFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }
     }

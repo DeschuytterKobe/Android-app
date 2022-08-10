@@ -47,8 +47,8 @@
             android:id="@+id/action_postListFragment2_to_addPostFragment"
             app:destination="@id/addPostFragment" />
         <action
-            android:id="@+id/action_postListFragment2_to_postUpdateFragment"
-            app:destination="@id/postUpdateFragment" />
+            android:id="@+id/action_postListFragment2_to_postOpenFragment"
+            app:destination="@id/postOpenFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
@@ -64,11 +64,8 @@
         android:name="com.example.hogentderdezitapplicatie.fragments.posts.update.PostUpdateFragment"
         android:label="post_update"
         tools:layout="@layout/fragment_post_update" >
-        <action
-            android:id="@+id/action_postUpdateFragment_to_postListFragment2"
-            app:destination="@id/postListFragment2" />
         <argument
-            android:name="currentPost"
+            android:name="openCurrentPost"
             app:argType="com.example.hogentderdezitapplicatie.model.Post" />
     </fragment>
     <fragment
@@ -89,5 +86,11 @@
         <argument
             android:name="openCurrentPost"
             app:argType="com.example.hogentderdezitapplicatie.model.Post" />
+        <action
+            android:id="@+id/action_postOpenFragment_to_postUpdateFragment"
+            app:destination="@id/postUpdateFragment" />
+        <action
+            android:id="@+id/action_postOpenFragment_to_postListFragment2"
+            app:destination="@id/postListFragment2" />
     </fragment>
 </navigation>

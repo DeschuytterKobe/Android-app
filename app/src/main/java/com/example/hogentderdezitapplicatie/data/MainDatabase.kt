@@ -5,13 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.hogentderdezitapplicatie.model.Post
+import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.model.User
 
-@Database(entities = [Post::class, User::class], version=2, exportSchema = false)
+@Database(entities = [Post::class, User::class], version=2,exportSchema = false )
 abstract class MainDatabase : RoomDatabase() {
 
     abstract val postDao : PostDao
     abstract val userDao : UserDao
+//    abstract val reactionDao : ReactionDao
 
 
     companion object{
