@@ -57,8 +57,9 @@ class PostOpenFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        rReactionViewModel.getReactionsFromPost(args.openCurrentPost.id)
 
-//        reactionList = rReactionViewModel.getReactionsFromPost(args.openCurrentPost.id)
+
 
         rReactionViewModel.reaction.observe(viewLifecycleOwner, Observer { reaction ->
             adapter.setData(reaction)

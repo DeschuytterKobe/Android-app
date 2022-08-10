@@ -1,5 +1,7 @@
 package com.example.hogentderdezitapplicatie.fragments.users.login
 
+
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -21,6 +23,9 @@ import com.auth0.android.management.UsersAPIClient
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
+import com.example.hogentderdezitapplicatie.activies.PostActivity
+import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
+import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
@@ -80,8 +85,19 @@ class LoginFragment : AppCompatActivity() {
                 override fun onSuccess(credentials: Credentials) {
                     cachedCredentials = credentials
                     showSnackBar(getString(R.string.login_success_message, credentials.accessToken))
-                    updateUI()
-                    showUserProfile()
+
+                    val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
+
+                    securefile.file.fill(cachedCredentials)
+
+                    securefile.saveFile()
+
+
+                    val navigateToPostActivity = Intent(applicationContext,PostActivity::class.java)
+                    startActivity(navigateToPostActivity)
+
+//                    updateUI()
+//                    showUserProfile()
 
 
                 }
