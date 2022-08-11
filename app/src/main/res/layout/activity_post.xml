@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".activies.PostActivity">
 
+    <TextView
+        android:id="@+id/txt_name_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </TextView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

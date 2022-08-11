@@ -2,21 +2,56 @@ package com.example.hogentderdezitapplicatie.domein;
 
 
 import com.auth0.android.result.Credentials;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthTokenSecureFile implements SecureFile {
 
 
-    private final  String _tokenName ="jwt_tokens_v1.json";
+    private final  String _tokenName ="jwt_tokens_v2.json";
 
 
     private Date expiresAt;
     private String accesToken;
     private String idToken;
     private String refreshToken;
-//    private String type;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
+
+    public String getTokenType() {
+        return tokenType;
+    }
+
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
+    }
+
+    private String tokenType;
+
 
 
 
@@ -33,7 +68,35 @@ public class AuthTokenSecureFile implements SecureFile {
         setIdToken(credentials.getIdToken());
         setRefreshToken(credentials.getRefreshToken());
         setExpiresAt(credentials.getExpiresAt());
-//        setType(credentials.getType());
+        setTokenType(credentials.getType());
+        fillCustomContent(getIdToken());
+    }
+
+
+    private final String KEY_EMAIL_ADRESS ="name";
+    private final String KEY_EMAIL_NAME ="nickname";
+
+    private  void fillCustomContent(String token){
+        if(token == null || token.isEmpty()){
+            throw   new IllegalArgumentException("id token should be filled in");
+        }
+
+        String dataBase64 = token.split("\\.")[1];
+        Base64.Decoder decoder = Base64.getUrlDecoder();
+        String payload = new String(decoder.decode(dataBase64));
+
+
+        Map<String, Object> retMap = new Gson().fromJson(
+                payload, new TypeToken<HashMap<String, Object>>() {}.getType()
+        );
+
+        //TODO fix error handeling in try catch en zo
+        String result =retMap.get(KEY_EMAIL_ADRESS).toString();
+        setEmail(result);
+        setName(retMap.get(KEY_EMAIL_NAME).toString());
+
+
+
     }
 
 
@@ -54,9 +117,7 @@ public class AuthTokenSecureFile implements SecureFile {
         this.refreshToken = refreshToken;
     }
 
-//    public void setType(String type) {
-//        this.type = type;
-//    }
+
     public String getAccesToken() {
         return accesToken;
     }
@@ -69,9 +130,7 @@ public class AuthTokenSecureFile implements SecureFile {
     public String getRefreshToken() {
         return refreshToken;
     }
-//    public String getType() {
-//        return type;
-//    }
+
 
 
 
@@ -88,7 +147,7 @@ public class AuthTokenSecureFile implements SecureFile {
 
     @Override
     public Type getType() {
-        return null;
+        return AuthTokenSecureFile.class;
     }
 
 
