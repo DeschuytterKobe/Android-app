@@ -8,11 +8,22 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <Button
+        android:id="@+id/AddReactionButton"
+        android:layout_width="121dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="52dp"
+        android:text="Add Reaction"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@+id/textView2" />
+
     <TextView
         android:id="@+id/open_postTitle"
         android:layout_width="362dp"
         android:layout_height="39dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="204dp"
         android:text="Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.183"
@@ -23,10 +34,10 @@
         android:id="@+id/open_postDescription"
         android:layout_width="316dp"
         android:layout_height="61dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="postDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintHorizontal_bias="0.326"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/open_postTitle" />
 
@@ -34,7 +45,7 @@
         android:id="@+id/open_postLink"
         android:layout_width="253dp"
         android:layout_height="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="postLink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.841"
@@ -45,12 +56,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="148dp"
         android:text="OPEN POST"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +69,7 @@
         android:id="@+id/EditPostButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="140dp"
         android:text="Edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.872"
@@ -76,24 +87,25 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reactionRecyclerview"
-        app:layout_constraintVertical_bias="0.006" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/AddReactionButton"
-        android:layout_width="121dp"
-        android:layout_height="59dp"
-        android:layout_marginBottom="180dp"
-        android:text="Add Reaction"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reactionRecyclerview"
+        android:layout_width="413dp"
+        android:layout_height="79dp"
+        android:layout_marginBottom="228dp"
+        android:background="#A3A2A2"
+        android:backgroundTint="#9C9090"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toEndOf="@+id/textView2" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="114dp"
         android:layout_height="38dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="364dp"
         android:text="REACTIONS"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -101,18 +113,6 @@
         app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reactionRecyclerview"
-        android:layout_width="413dp"
-        android:layout_height="79dp"
-        android:layout_marginBottom="356dp"
-        android:background="#A3A2A2"
-        android:backgroundTint="#9C9090"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.26"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
