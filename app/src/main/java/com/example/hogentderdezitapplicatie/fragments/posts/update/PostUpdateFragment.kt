@@ -17,6 +17,7 @@ import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import kotlinx.android.synthetic.main.fragment_post_update.*
 import kotlinx.android.synthetic.main.fragment_post_update.view.*
+import java.util.*
 
 
 class PostUpdateFragment : Fragment() {
@@ -49,7 +50,7 @@ class PostUpdateFragment : Fragment() {
         val link = update_postLink.text.toString()
 
         if(inputCheck(title,description)){
-            val updatePost = Post(args.openCurrentPost.id,title,description,link)
+            val updatePost = Post(args.openCurrentPost.id,1,title,description,link, Date(),0)
 
             mPostViewModel.updatePost(updatePost)
             Toast.makeText(requireContext(),"Updated Succesfully!",Toast.LENGTH_SHORT).show()

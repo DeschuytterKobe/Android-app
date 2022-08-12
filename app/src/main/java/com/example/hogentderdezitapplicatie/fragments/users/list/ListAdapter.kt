@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.model.User
 import kotlinx.android.synthetic.main.custom_row.view.*
@@ -27,7 +28,8 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.id_txt.text = currentItem.id.toString()
         holder.itemView.firstName_txt.text = currentItem.firstName
         holder.itemView.lastName_txt.text = currentItem.lastName
-        holder.itemView.avatar_txt.text= currentItem.avatar.toString()
+        holder.itemView.imageViewProfilePic.load(currentItem.profilePhoto)
+//        holder.itemView.avatar_txt.text= currentItem.avatar.toString()
 
         holder.itemView.rowLayout.setOnClickListener{
             val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)

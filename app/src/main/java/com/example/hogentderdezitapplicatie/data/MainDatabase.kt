@@ -1,14 +1,14 @@
 package com.example.hogentderdezitapplicatie.data
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.example.hogentderdezitapplicatie.converters.Converters
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.model.User
 
 @Database(entities = [Post::class, User::class,Reaction::class], version=3,exportSchema = false )
+@TypeConverters(Converters::class)
 abstract class MainDatabase : RoomDatabase() {
 
     abstract val postDao : PostDao

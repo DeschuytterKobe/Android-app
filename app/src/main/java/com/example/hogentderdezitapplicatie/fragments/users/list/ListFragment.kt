@@ -4,14 +4,17 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
+import kotlinx.android.synthetic.main.custom_row.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
@@ -39,6 +42,10 @@ class ListFragment : Fragment() {
         mUserViewModel.users.observe(viewLifecycleOwner, Observer { user ->
             adapter.setData(user)
         })
+
+
+
+
 
         view.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)

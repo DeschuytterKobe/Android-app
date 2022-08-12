@@ -1,5 +1,6 @@
 package com.example.hogentderdezitapplicatie.model
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import android.text.Editable
 import androidx.room.Entity
@@ -14,6 +15,7 @@ data class User(
     val firstName: String,
     val lastName: String,
     val avatar: Int,
+    val profilePhoto : Bitmap,
 
 
     ) : Parcelable

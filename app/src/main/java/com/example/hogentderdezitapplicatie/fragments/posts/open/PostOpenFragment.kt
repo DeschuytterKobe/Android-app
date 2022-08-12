@@ -57,17 +57,16 @@ class PostOpenFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        rReactionViewModel.getReactionsFromPost(args.openCurrentPost.id)
+
+
 
 
 
         rReactionViewModel.reaction.observe(viewLifecycleOwner, Observer { reaction ->
+
             adapter.setData(reaction)
         })
 
-//        Log.d("eerste","${args.openCurrentPost.id}")
-//        var rrrr = rReactionViewModel.getReactionsFromPost(args.openCurrentPost.id)
-//        Log.d("1","${rrrr}")
 
         view.open_postTitle.setText(args.openCurrentPost.title)
         view.open_postDescription.setText(args.openCurrentPost.description)

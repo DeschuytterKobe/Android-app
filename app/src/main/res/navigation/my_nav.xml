@@ -69,11 +69,6 @@
             app:argType="com.example.hogentderdezitapplicatie.model.Post" />
     </fragment>
     <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.example.hogentderdezitapplicatie.aboutFragment"
-        android:label="fragment_about"
-        tools:layout="@layout/fragment_about" />
-    <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.hogentderdezitapplicatie.fragments.users.login.LoginFragment"
         android:label="fragment_login"
@@ -93,4 +88,9 @@
             android:id="@+id/action_postOpenFragment_to_postListFragment2"
             app:destination="@id/postListFragment2" />
     </fragment>
+    <activity
+        android:id="@+id/profileDetailActivity3"
+        android:name="com.example.hogentderdezitapplicatie.fragments.profile.ProfileDetailActivity"
+        android:label="activity_profile_detail"
+        tools:layout="@layout/activity_profile_detail" />
 </navigation>

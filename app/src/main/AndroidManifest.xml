@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hogentderdezitapplicatie">
         <activity
+            android:name=".fragments.profile.ProfileDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".activies.PostActivity"
             android:exported="true" />
         <activity

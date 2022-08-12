@@ -14,6 +14,9 @@ interface PostDao {
     @Query("SELECT * FROM post_table ORDER BY id ASC")
     fun readAllPosts(): LiveData<List<Post>>
 
+    @Query("SELECT * FROM post_table WHERE userId = :userId ")
+    fun readAllPostsFromUser(userId : Int): LiveData<List<Post>>
+
     @Update
     fun updatePost(post: Post)
 

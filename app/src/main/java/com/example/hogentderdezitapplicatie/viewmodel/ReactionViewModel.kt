@@ -2,6 +2,7 @@ package com.example.hogentderdezitapplicatie.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.hogentderdezitapplicatie.data.MainDatabase
 import com.example.hogentderdezitapplicatie.model.Post
@@ -14,8 +15,6 @@ import kotlinx.coroutines.launch
 class ReactionViewModel(application: Application) : AndroidViewModel(application){
 
     val db = MainDatabase.getDatabase(application.applicationContext)
-
-
 
     private val rRepository = ReactionRepository(db.reactionDao)
 
@@ -40,7 +39,7 @@ class ReactionViewModel(application: Application) : AndroidViewModel(application
             rRepository.deleteReaction(reaction)
         }
     }
-    fun getReactionsFromPost(postId : Int){
+    fun getReactionsFromPost(postId : Int) {
         viewModelScope.launch(Dispatchers.IO){
             rRepository.getReactionsFromPost(postId)
         }

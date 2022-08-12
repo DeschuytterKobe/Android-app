@@ -14,6 +14,8 @@ import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import kotlinx.android.synthetic.main.fragment_add_post.*
 import kotlinx.android.synthetic.main.fragment_add_post.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class addPostFragment : Fragment() {
@@ -44,7 +46,7 @@ class addPostFragment : Fragment() {
 
         if(inputCheck(title, description)){
             // Create User Object
-            val post = Post(0 ,title, description,link)
+            val post = Post(0 ,1,title, description,link,Date(),0)
             // Add Data to Database
             mPostViewModel.addPost(post)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()

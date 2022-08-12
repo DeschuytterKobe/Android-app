@@ -8,6 +8,6 @@
         android:id="@+id/listFragment"
         android:title="users" />
     <item
-        android:id="@+id/aboutFragment"
+        android:id="@+id/profileDetailActivity3"
         android:title="about" />
 </menu>

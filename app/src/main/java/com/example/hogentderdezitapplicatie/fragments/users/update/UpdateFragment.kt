@@ -1,6 +1,8 @@
 package com.example.hogentderdezitapplicatie.fragments.users.update
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -8,13 +10,18 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.model.User
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
+import kotlinx.coroutines.launch
 
 
 class UpdateFragment : Fragment() {
@@ -50,9 +57,13 @@ class UpdateFragment : Fragment() {
         val avatar = Integer.parseInt(updateAvatar.text.toString())
 
         if(inputCheck(firstName,lastName,updateAvatar.text)){
-            val updatedUser = User(args.currentUser.id,firstName,lastName,avatar)
+            lifecycleScope.launch{
+                val updatedUser = User(args.currentUser.id,firstName,lastName,avatar,getBitmap())
+                mUserViewModel.updateUser(updatedUser)
+            }
 
-            mUserViewModel.updateUser(updatedUser)
+
+
 
             Toast.makeText(requireContext(),"Succesfully updated",Toast.LENGTH_SHORT).show()
 
@@ -92,5 +103,14 @@ class UpdateFragment : Fragment() {
         builder.create().show(
 
         )
+    }
+    private suspend fun getBitmap(): Bitmap {
+        val loading = ImageLoader(requireContext())
+        val request = ImageRequest.Builder(requireContext())
+            .data("https://avatars3.githubusercontent.com/u/14994036?s=400&u=2832879700f03d4b37ae1c09645352a352b9d2d0&v=4")
+            .build()
+
+        val result = (loading.execute(request) as SuccessResult).drawable
+        return (result as BitmapDrawable).bitmap
     }
 }

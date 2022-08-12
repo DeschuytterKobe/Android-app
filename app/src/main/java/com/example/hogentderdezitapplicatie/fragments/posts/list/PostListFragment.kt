@@ -32,7 +32,7 @@ class PostListFragment : Fragment() {
 
 
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
-        mPostViewModel.posts.observe(viewLifecycleOwner, Observer { post ->
+        mPostViewModel.postsFromUser.observe(viewLifecycleOwner, Observer { post ->
             adapter.setData(post)
         })
 
