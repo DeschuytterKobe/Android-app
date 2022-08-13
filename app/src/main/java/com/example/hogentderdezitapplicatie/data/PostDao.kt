@@ -1,9 +1,9 @@
 package com.example.hogentderdezitapplicatie.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.hogentderdezitapplicatie.model.Post
-import com.example.hogentderdezitapplicatie.model.User
 
 @Dao
 interface PostDao {
@@ -13,6 +13,9 @@ interface PostDao {
 
     @Query("SELECT * FROM post_table ORDER BY id ASC")
     fun readAllPosts(): LiveData<List<Post>>
+
+    @Query("SELECT * FROM post_table  WHERE Id = :postId")
+    fun readPostWithId(postId: Int?): LiveData<Post>
 
     @Query("SELECT * FROM post_table WHERE userId = :userId ")
     fun readAllPostsFromUser(userId : Int): LiveData<List<Post>>

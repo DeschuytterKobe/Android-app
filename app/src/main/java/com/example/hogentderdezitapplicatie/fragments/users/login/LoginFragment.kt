@@ -86,6 +86,7 @@ class LoginFragment : AppCompatActivity() {
 
                 override fun onSuccess(credentials: Credentials) {
                     cachedCredentials = credentials
+                    Log.d("",cachedCredentials.toString())
                     showSnackBar(getString(R.string.login_success_message, credentials.accessToken))
 
                     val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())

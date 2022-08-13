@@ -67,6 +67,9 @@
         <argument
             android:name="openCurrentPost"
             app:argType="com.example.hogentderdezitapplicatie.model.Post" />
+        <action
+            android:id="@+id/action_postUpdateFragment_to_postListFragment2"
+            app:destination="@id/postListFragment2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

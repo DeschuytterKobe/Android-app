@@ -32,10 +32,10 @@
         android:id="@+id/update_postLink"
         android:layout_width="190dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="postLink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update_postDescription" />
 
@@ -50,6 +50,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update_postLink" />
 
+    <ImageView
+        android:id="@+id/update_post_image"
+        android:layout_width="78dp"
+        android:layout_height="84dp"
+        app:layout_constraintBottom_toTopOf="@+id/updatePost_btn"
+        app:layout_constraintEnd_toStartOf="@+id/update_postLink"
+        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update_postDescription"
+        app:layout_constraintVertical_bias="0.45"
+        tools:src="@tools:sample/avatars" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

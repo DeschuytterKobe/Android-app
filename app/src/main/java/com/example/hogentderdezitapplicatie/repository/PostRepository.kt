@@ -1,10 +1,9 @@
 package com.example.hogentderdezitapplicatie.repository
 
 import androidx.lifecycle.LiveData
-import androidx.room.Query
+import androidx.lifecycle.MutableLiveData
 import com.example.hogentderdezitapplicatie.data.PostDao
 import com.example.hogentderdezitapplicatie.model.Post
-import com.example.hogentderdezitapplicatie.model.User
 
 class PostRepository(private val postDao : PostDao, private val userId: Int) {
 
@@ -17,6 +16,9 @@ class PostRepository(private val postDao : PostDao, private val userId: Int) {
 
     suspend fun readAllPostsFromUser(userId : Int){
         postDao.readAllPostsFromUser(userId)
+    }
+     fun readPostWithId(postId: Int?): LiveData<Post>{
+       return postDao.readPostWithId(postId)
     }
 
 

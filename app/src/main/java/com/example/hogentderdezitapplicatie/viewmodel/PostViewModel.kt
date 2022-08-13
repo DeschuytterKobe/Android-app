@@ -1,17 +1,14 @@
 package com.example.hogentderdezitapplicatie.viewmodel
 
 import android.app.Application
-import android.view.View
-import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.data.MainDatabase
 import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
 import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.model.Post
-import com.example.hogentderdezitapplicatie.model.User
 import com.example.hogentderdezitapplicatie.repository.PostRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,6 +39,14 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 //        }
 //    }
 
+
+    fun readPostWithId(postId: Int?): LiveData<Post>{
+
+            return pRepository.readPostWithId(postId)
+
+
+
+    }
 
     fun updatePost(post: Post){
         viewModelScope.launch(Dispatchers.IO){
