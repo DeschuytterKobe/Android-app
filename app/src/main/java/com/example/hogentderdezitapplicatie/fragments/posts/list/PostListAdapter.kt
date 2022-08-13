@@ -1,10 +1,15 @@
 package com.example.hogentderdezitapplicatie.fragments.posts.list
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
@@ -38,7 +43,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>()
         holder.itemView.postDate_txt.text= currentDate
 
         holder.itemView.postLikeButton.setOnClickListener{
-            val updatePost = Post(currentItem.id,1,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1)
+            val updatePost = Post(currentItem.id,1,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1,currentItem.picture)
 
             mPostViewModel.updatePost(updatePost)
 
@@ -49,6 +54,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>()
             holder.itemView.findNavController().navigate(action)
         }
     }
+
 
 
     fun setData(post: List<Post>){

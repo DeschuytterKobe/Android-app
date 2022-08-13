@@ -1,26 +1,48 @@
 package com.example.hogentderdezitapplicatie.fragments.posts.add
 
+
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.example.hogentderdezitapplicatie.R
+import com.example.hogentderdezitapplicatie.converters.Converters
+import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
+import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import kotlinx.android.synthetic.main.fragment_add_post.*
 import kotlinx.android.synthetic.main.fragment_add_post.view.*
-import java.text.SimpleDateFormat
+import kotlinx.coroutines.launch
 import java.util.*
 
 
 class addPostFragment : Fragment() {
 
     private lateinit var mPostViewModel: PostViewModel
+
+    private lateinit var button : Button
+    private lateinit var imageView: ImageView
+    private lateinit var converters: Converters
+
+    companion object{
+        val IMAGE_REQUEST_CODE = 100
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,26 +51,47 @@ class addPostFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_post, container, false)
 
+        button = view.findViewById(R.id.add_picture_button)
+
+        imageView = view.findViewById(R.id.add_image_to_post)
+
+        button.setOnClickListener{
+            pickImageGallery()
+        }
+
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
         view.addPost_btn.setOnClickListener{
             insertPostDataToDatabase()
         }
 
+
         return view
     }
 
+    private fun pickImageGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, addPostFragment.IMAGE_REQUEST_CODE)
+    }
+
     private fun insertPostDataToDatabase() {
+        val int = SecureFileHandle(context,  AuthTokenSecureFile()).file.userId
         val title = add_postTitle.text.toString()
         val description = add_postDescription.text.toString()
         val link = add_postLink.text.toString()
+//        val image = add_image_to_post
 
+        val bytes= (imageView.drawable as BitmapDrawable).bitmap
 
         if(inputCheck(title, description)){
             // Create User Object
-            val post = Post(0 ,1,title, description,link,Date(),0)
-            // Add Data to Database
-            mPostViewModel.addPost(post)
+            lifecycleScope.launch{
+                val post = Post(0 ,int,title, description,link,Date(),0,bytes )
+                mPostViewModel.addPost(post)
+            }
+
+
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate Back
             findNavController().navigate(R.id.action_addPostFragment_to_postListFragment2)
@@ -60,5 +103,20 @@ class addPostFragment : Fragment() {
     private fun inputCheck(title: String, description: String): Boolean{
         return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(description))
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if(requestCode == addPostFragment.IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK)
+            imageView.setImageURI(data?.data)
+    }
+
+    private suspend fun getBitmap(): Bitmap {
+        val loading = ImageLoader(requireContext())
+        val request = ImageRequest.Builder(requireContext())
+            .data("https://avatars3.githubusercontent.com/u/14994036?s=400&u=2832879700f03d4b37ae1c09645352a352b9d2d0&v=4")
+            .build()
+
+        val result = (loading.execute(request) as SuccessResult).drawable
+        return (result as BitmapDrawable).bitmap
+    }
 }

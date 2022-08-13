@@ -55,7 +55,9 @@ class LoginFragment : AppCompatActivity() {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonLogin.setOnClickListener { login() }
+        binding.buttonLogin.setOnClickListener { login(1) }
+        binding.buttonLogin1.setOnClickListener { login(2) }
+        binding.buttonLoginAdmin.setOnClickListener { login(3) }
         binding.buttonLogout.setOnClickListener { logout() }
         binding.buttonGet.setOnClickListener { getUserMetadata() }
         binding.buttonSet.setOnClickListener { setUserMetadata() }
@@ -69,7 +71,7 @@ class LoginFragment : AppCompatActivity() {
 //        return NavigationUI.onNavDestinationSelected(item!!,requireView().findNavController())||
 //                return super.onOptionsItemSelected(item)
 //    }
-    private fun login() {
+    private fun login(userId:Int) {
         Log.d("in oncreate","3")
         WebAuthProvider
             .login(account)
@@ -88,12 +90,13 @@ class LoginFragment : AppCompatActivity() {
 
                     val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
 
-                    securefile.file.fill(cachedCredentials)
+                    securefile.file.fill(cachedCredentials, userId);
 
                     securefile.saveFile()
 
 
                     val navigateToPostActivity = Intent(applicationContext,PostActivity::class.java)
+
                     startActivity(navigateToPostActivity)
 
 //                    updateUI()

@@ -2,6 +2,7 @@ package com.example.hogentderdezitapplicatie.fragments.posts.update
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ class PostUpdateFragment : Fragment() {
 
     private val args by navArgs<PostUpdateFragmentArgs>()
     private lateinit var mPostViewModel : PostViewModel
+    private lateinit var post :Post
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,14 +34,18 @@ class PostUpdateFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_post_update, container, false)
 
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
-
-        view.update_postTitle.setText(args.openCurrentPost.title)
-        view.update_postDescription.setText(args.openCurrentPost.description)
-        view.update_postLink.setText(args.openCurrentPost.link)
+//
+//        view.update_postTitle.setText(args.openCurrentPost.title)
+//        view.update_postDescription.setText(args.openCurrentPost.description)
+//        view.update_postLink.setText(args.openCurrentPost.link)
 
         view.updatePost_btn.setOnClickListener{
             updatePost()
         }
+
+        var postId = arguments?.getInt("postId")
+        Log.d("main",postId.toString())
+        //TODO laad van database en vull viemodel
 
         return view
     }
@@ -50,7 +56,7 @@ class PostUpdateFragment : Fragment() {
         val link = update_postLink.text.toString()
 
         if(inputCheck(title,description)){
-            val updatePost = Post(args.openCurrentPost.id,1,title,description,link, Date(),0)
+            val updatePost = Post(args.openCurrentPost.id,1,title,description,link, Date(),0, args.openCurrentPost.picture)
 
             mPostViewModel.updatePost(updatePost)
             Toast.makeText(requireContext(),"Updated Succesfully!",Toast.LENGTH_SHORT).show()

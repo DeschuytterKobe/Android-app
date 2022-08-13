@@ -10,6 +10,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.hogentderdezitapplicatie.R
+import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
+import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 
 class ProfileDetailActivity : AppCompatActivity() {
 
@@ -30,6 +32,9 @@ class ProfileDetailActivity : AppCompatActivity() {
         button.setOnClickListener{
             pickImageGallery()
         }
+        val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
+        securefile.file.userId;
+
 //        setupActionBarWithNavController(findNavController(R.id.myNavHostFragment))
     }
 

@@ -24,7 +24,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
 
 
-        private val pRepository = PostRepository(db.postDao)
+        private val pRepository = PostRepository(db.postDao,SecureFileHandle(application.applicationContext,  AuthTokenSecureFile()).file.userId)
 
         val posts = pRepository.readAllPosts
         val postsFromUser = pRepository.readPostsFromUser
@@ -36,11 +36,11 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun readAllPostsFromUser(userId : Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            pRepository.readAllPostsFromUser(userId)
-        }
-    }
+//    fun readAllPostsFromUser(userId : Int){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            pRepository.readAllPostsFromUser(userId)
+//        }
+//    }
 
 
     fun updatePost(post: Post){

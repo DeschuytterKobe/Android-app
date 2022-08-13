@@ -6,10 +6,10 @@ import com.example.hogentderdezitapplicatie.data.PostDao
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.User
 
-class PostRepository(private val postDao : PostDao) {
+class PostRepository(private val postDao : PostDao, private val userId: Int) {
 
     val readAllPosts : LiveData<List<Post>> = postDao.readAllPosts()
-    val readPostsFromUser :  LiveData<List<Post>> = postDao.readAllPostsFromUser(1)
+    val readPostsFromUser :  LiveData<List<Post>> = postDao.readAllPostsFromUser(userId)
 
     suspend fun addPost(post: Post){
         postDao.addPost(post)

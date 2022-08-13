@@ -14,13 +14,23 @@ import java.util.Map;
 public class AuthTokenSecureFile implements SecureFile {
 
 
-    private final  String _tokenName ="jwt_tokens_v2.json";
+    private final  String _tokenName ="jwt_tokens_v3.json";
 
 
     private Date expiresAt;
     private String accesToken;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     private String idToken;
     private String refreshToken;
+    private int userId;
 
     public String getEmail() {
         return email;
@@ -63,13 +73,15 @@ public class AuthTokenSecureFile implements SecureFile {
 //        return  new AuthTokenSecureFile(jwtToken) ;
 //    }
 
-    public void fill(Credentials credentials) {
+    public void fill(Credentials credentials, int userId) {
         setAccesToken(credentials.getAccessToken());
         setIdToken(credentials.getIdToken());
         setRefreshToken(credentials.getRefreshToken());
         setExpiresAt(credentials.getExpiresAt());
         setTokenType(credentials.getType());
         fillCustomContent(getIdToken());
+        setUserId(userId);
+
     }
 
 

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.fragments.posts.list.PostListAdapter
 import com.example.hogentderdezitapplicatie.fragments.posts.update.PostUpdateFragmentArgs
@@ -22,6 +23,8 @@ import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.model.User
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
+import kotlinx.android.synthetic.main.custom_row.*
+import kotlinx.android.synthetic.main.custom_row.view.*
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
@@ -71,7 +74,7 @@ class PostOpenFragment : Fragment() {
         view.open_postTitle.setText(args.openCurrentPost.title)
         view.open_postDescription.setText(args.openCurrentPost.description)
         view.open_postLink.setText(args.openCurrentPost.link)
-
+        view.img_open_post.load(args.openCurrentPost.picture)
 
         view.AddReactionButton.setOnClickListener {
             insertDataToDatabase()
@@ -80,9 +83,11 @@ class PostOpenFragment : Fragment() {
         setHasOptionsMenu(true)
 
 
-//        view.EditPostButton.setOnClickListener{
-//            findNavController().navigate(R.id.action_postOpenFragment_to_postUpdateFragment)
-//        }
+        view.EditPostButton.setOnClickListener{
+            var bundle = Bundle()
+            bundle.putInt("postId", args.openCurrentPost.id)
+            findNavController().navigate(R.id.action_postOpenFragment_to_postUpdateFragment, bundle)
+        }
         return view
     }
     private fun insertDataToDatabase() {

@@ -29,6 +29,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
+                android:id="@+id/button_login1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login Frank" />
+
+            <Button
                 android:id="@+id/button_login"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -114,6 +120,12 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/button_loginAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Admin" />
 
         </LinearLayout>
 

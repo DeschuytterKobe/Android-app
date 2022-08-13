@@ -13,14 +13,22 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
+import com.example.hogentderdezitapplicatie.fragments.posts.list.PostListAdapter
 import com.example.hogentderdezitapplicatie.fragments.users.list.ListAdapter
+import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.User
+import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
+import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var userViewModel : UserViewModel
+    private lateinit var postViewModel: PostViewModel
+    private lateinit var reactionViewModel: ReactionViewModel
+    private val postAdapter by lazy { PostListAdapter() }
     private val adapter by lazy { ListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +43,16 @@ class MainActivity : AppCompatActivity() {
         }
         userViewModel.users.observe(this,{
             adapter.setData(it)
+        })
+
+        lifecycleScope.launch{
+            val post = Post(0,1,"testTitel","testDescription","www.google.be", Date(),1,getBitmap())
+            postViewModel.addPost(post)
+            val post2 = Post(0,2,"tweede","tewwedededed","www.google.be", Date(),1,getBitmap())
+            postViewModel.addPost(post2)
+        }
+        postViewModel.posts.observe(this,{
+            postAdapter.setData(it)
         })
     }
 
