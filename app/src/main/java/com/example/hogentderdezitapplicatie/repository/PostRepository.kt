@@ -7,6 +7,7 @@ import com.example.hogentderdezitapplicatie.model.Post
 
 class PostRepository(private val postDao : PostDao, private val userId: Int) {
 
+
     val readAllPosts : LiveData<List<Post>> = postDao.readAllPosts()
     val readPostsFromUser :  LiveData<List<Post>> = postDao.readAllPostsFromUser(userId)
 

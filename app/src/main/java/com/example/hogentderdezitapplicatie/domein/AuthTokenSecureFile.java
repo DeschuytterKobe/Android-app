@@ -14,7 +14,7 @@ import java.util.Map;
 public class AuthTokenSecureFile implements SecureFile {
 
 
-    private final  String _tokenName ="jwt_tokens_v3.json";
+    private final  String _tokenName ="jwt_tokens_v4.json";
 
 
     private Date expiresAt;
@@ -79,8 +79,9 @@ public class AuthTokenSecureFile implements SecureFile {
         setRefreshToken(credentials.getRefreshToken());
         setExpiresAt(credentials.getExpiresAt());
         setTokenType(credentials.getType());
-        fillCustomContent(getIdToken());
         setUserId(userId);
+        fillCustomContent(getIdToken());
+
 
     }
 

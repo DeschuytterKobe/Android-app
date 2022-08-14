@@ -43,7 +43,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>()
         holder.itemView.postDate_txt.text= currentDate
 
         holder.itemView.postLikeButton.setOnClickListener{
-            val updatePost = Post(currentItem.id,1,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1,currentItem.picture)
+            val updatePost = Post(currentItem.id,currentItem.userId,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1,currentItem.picture)
 
             mPostViewModel.updatePost(updatePost)
 

@@ -1,6 +1,7 @@
 package com.example.hogentderdezitapplicatie.fragments.posts.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ class PostListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        Log.d("test","testttt")
         val view = inflater.inflate(R.layout.fragment_post_list, container, false)
 
         val adapter = PostListAdapter()

@@ -92,7 +92,7 @@ class LoginFragment : AppCompatActivity() {
                     val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
 
                     securefile.file.fill(cachedCredentials, userId);
-
+                    Log.d("in login with userId",userId.toString())
                     securefile.saveFile()
 
 
