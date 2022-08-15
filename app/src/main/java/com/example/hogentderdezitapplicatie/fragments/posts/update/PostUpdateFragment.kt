@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
 import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
@@ -31,6 +32,7 @@ class PostUpdateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var userId = SecureFileHandle(context,  AuthTokenSecureFile()).file.userId
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_post_update, container, false)
 
@@ -61,6 +63,9 @@ class PostUpdateFragment : Fragment() {
 
         view.updatePost_btn.setOnClickListener{
             updatePost()
+            var bundle = Bundle()
+            bundle.putInt("userId", userId)
+            it.findNavController().navigate(R.id.action_postUpdateFragment_to_postListFragment2,bundle)
         }
 
 

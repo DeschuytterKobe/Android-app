@@ -12,6 +12,7 @@ import com.example.hogentderdezitapplicatie.R
 import androidx.appcompat.app.AppCompatActivity
 import com.example.hogentderdezitapplicatie.databinding.FragmentLoginBinding
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
@@ -26,6 +27,7 @@ import com.auth0.android.result.UserProfile
 import com.example.hogentderdezitapplicatie.activies.PostActivity
 import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
 import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
+import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
@@ -36,6 +38,7 @@ class LoginFragment : AppCompatActivity() {
 
 
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var mPostViewModel : PostViewModel
 
     // Login/logout-related properties
     private lateinit var account: Auth0
@@ -93,10 +96,12 @@ class LoginFragment : AppCompatActivity() {
 
                     securefile.file.fill(cachedCredentials, userId);
                     Log.d("in login with userId",userId.toString())
+
+                    val navigateToPostActivity = Intent(applicationContext,PostActivity::class.java)
                     securefile.saveFile()
 
 
-                    val navigateToPostActivity = Intent(applicationContext,PostActivity::class.java)
+
 
                     startActivity(navigateToPostActivity)
 

@@ -1,6 +1,7 @@
 package com.example.hogentderdezitapplicatie.fragments.posts.open
 
 import android.app.AlertDialog
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -11,11 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.hogentderdezitapplicatie.R
+import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
+import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.fragments.posts.list.PostListAdapter
 import com.example.hogentderdezitapplicatie.fragments.posts.update.PostUpdateFragmentArgs
 import com.example.hogentderdezitapplicatie.model.Post
@@ -30,9 +34,12 @@ import kotlinx.android.synthetic.main.fragment_add.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
 import kotlinx.android.synthetic.main.fragment_post_open.*
 import kotlinx.android.synthetic.main.fragment_post_open.view.*
+import kotlinx.android.synthetic.main.fragment_post_update.*
 import kotlinx.android.synthetic.main.fragment_post_update.view.*
 import kotlinx.android.synthetic.main.fragment_post_update.view.update_postLink
 import kotlinx.android.synthetic.main.fragment_update.view.*
+import kotlinx.coroutines.launch
+import java.util.*
 
 
 class PostOpenFragment : Fragment() {
@@ -80,6 +87,13 @@ class PostOpenFragment : Fragment() {
             insertDataToDatabase()
         }
 
+        view.open_post_like.setOnClickListener{
+            likePost()
+            Log.d("clcked on post like","yeet")
+        }
+
+
+
         setHasOptionsMenu(true)
 
 
@@ -90,6 +104,26 @@ class PostOpenFragment : Fragment() {
         }
         return view
     }
+
+    private fun likePost(){
+        Log.d("test","in like post")
+        lifecycleScope.launch{
+            val updatesPost = Post(args.openCurrentPost.id,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,
+                args.openCurrentPost.title,
+                args.openCurrentPost.description,
+                args.openCurrentPost.link,Date(),
+                1,
+                args.openCurrentPost.picture)
+            mPostViewModel.updatePost(updatesPost)
+        }
+        Log.d("test","gagng")
+
+        findNavController().navigate(R.id.action_postOpenFragment_to_postListFragment2)
+
+
+
+            }
+
     private fun insertDataToDatabase() {
         val reactionContent = add_reactionContent.text.toString()
 

@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,7 @@ class addPostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_add_post, container, false)
 
         button = view.findViewById(R.id.add_picture_button)
@@ -76,7 +78,14 @@ class addPostFragment : Fragment() {
     }
 
     private fun insertPostDataToDatabase() {
-        val int = SecureFileHandle(context,  AuthTokenSecureFile()).file.userId
+//        val int = SecureFileHandle(context,  AuthTokenSecureFile()).file.userId
+
+        var userId = arguments?.getInt("userId")
+        var bundle = Bundle()
+        if (userId != null) {
+            bundle.putInt("userId", userId)
+        }
+        Log.d("main",userId.toString())
         val title = add_postTitle.text.toString()
         val description = add_postDescription.text.toString()
         val link = add_postLink.text.toString()
@@ -87,14 +96,14 @@ class addPostFragment : Fragment() {
         if(inputCheck(title, description)){
             // Create User Object
             lifecycleScope.launch{
-                val post = Post(0 ,int,title, description,link,Date(),0,bytes )
+                val post = Post(0 , userId!!,title, description,link,Date(),0,bytes )
                 mPostViewModel.addPost(post)
             }
 
 
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate Back
-            findNavController().navigate(R.id.action_addPostFragment_to_postListFragment2)
+            findNavController().navigate(R.id.action_addPostFragment_to_postListFragment2,bundle)
         }else{
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
         }
@@ -110,13 +119,5 @@ class addPostFragment : Fragment() {
             imageView.setImageURI(data?.data)
     }
 
-    private suspend fun getBitmap(): Bitmap {
-        val loading = ImageLoader(requireContext())
-        val request = ImageRequest.Builder(requireContext())
-            .data("https://avatars3.githubusercontent.com/u/14994036?s=400&u=2832879700f03d4b37ae1c09645352a352b9d2d0&v=4")
-            .build()
 
-        val result = (loading.execute(request) as SuccessResult).drawable
-        return (result as BitmapDrawable).bitmap
-    }
 }

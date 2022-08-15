@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.hogentderdezitapplicatie.data.PostDao
 import com.example.hogentderdezitapplicatie.model.Post
 
-class PostRepository(private val postDao : PostDao, private val userId: Int) {
+class PostRepository(private val postDao : PostDao, userId: Int) {
 
 
     val readAllPosts : LiveData<List<Post>> = postDao.readAllPosts()
