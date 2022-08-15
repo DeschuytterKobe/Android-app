@@ -10,4 +10,7 @@
     <item
         android:id="@+id/profileDetailActivity3"
         android:title="about" />
+    <item
+        android:id="@+id/overviewJokeFragment"
+        android:title="overviewJokeFragment" />
 </menu>

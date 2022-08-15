@@ -47,6 +47,14 @@ public class SecureFileHandle<T extends SecureFile> {
         }
     }
 
+    public void clearFile(){
+        File file = new File(context.getFilesDir(), data.getFileName());
+        if (!file.exists()) {
+            return ;
+        }
+        file.delete();
+    }
+
     private void loadFile() {
         File file = new File(context.getFilesDir(), data.getFileName());
         if (!file.exists()) {

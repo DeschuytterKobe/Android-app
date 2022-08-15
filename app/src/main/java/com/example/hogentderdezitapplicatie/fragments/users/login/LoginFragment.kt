@@ -115,6 +115,10 @@ class LoginFragment : AppCompatActivity() {
 
 
     private fun logout() {
+        //TODO
+        val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
+        securefile.clearFile()
+
         WebAuthProvider
             .logout(account)
             .withScheme(getString(R.string.com_auth0_scheme))

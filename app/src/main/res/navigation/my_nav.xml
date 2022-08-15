@@ -96,4 +96,9 @@
         android:name="com.example.hogentderdezitapplicatie.fragments.profile.ProfileDetailActivity"
         android:label="activity_profile_detail"
         tools:layout="@layout/activity_profile_detail" />
+    <fragment
+        android:id="@+id/overviewJokeFragment"
+        android:name="com.example.hogentderdezitapplicatie.api.OverviewJokeFragment"
+        android:label="OverviewJokeFragment"
+        tools:layout="@layout/fragment_overview_joke"/>
 </navigation>

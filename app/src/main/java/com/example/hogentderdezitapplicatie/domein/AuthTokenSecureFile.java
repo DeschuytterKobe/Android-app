@@ -14,7 +14,7 @@ import java.util.Map;
 public class AuthTokenSecureFile implements SecureFile {
 
 
-    private final  String _tokenName ="jwt_tokens_v4.json";
+    private final  String _tokenName ="jwt_tokens_v5.json";
 
 
     private Date expiresAt;
@@ -151,7 +151,7 @@ public class AuthTokenSecureFile implements SecureFile {
     @Override
     public boolean isValid() {
         //check if token is valid
-        return false;
+        return true;
     }
     @Override
     public String getFileName() {
