@@ -51,4 +51,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getUserById(userId : Int): LiveData<User>{
+            return uRepository.getUserWithId(userId)
+
+    }
+    fun getUserByIdForList(userId : Int): User{
+        return uRepository.getUserByIdForList(userId)
+
+    }
+
 }

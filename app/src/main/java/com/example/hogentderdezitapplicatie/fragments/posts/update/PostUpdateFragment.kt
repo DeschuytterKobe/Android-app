@@ -27,7 +27,9 @@ class PostUpdateFragment : Fragment() {
 
 //    private val args by navArgs<PostUpdateFragmentArgs>()
     private lateinit var mPostViewModel : PostViewModel
-    private lateinit var post :Post
+    private  var postRead =false
+    private  var postAnswered =false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,13 +44,14 @@ class PostUpdateFragment : Fragment() {
 
 
         var postId = arguments?.getInt("postId")
-        Log.d("main",postId.toString())
 
         mPostViewModel.readPostWithId(postId).observe(viewLifecycleOwner ){
             view.update_postTitle.setText(it.title)
              view.update_postDescription.setText(it.description)
             view.update_postLink.setText(it.link)
             view.update_post_image.setImageBitmap(it.picture)
+            postRead = it.read
+            postAnswered = it.answered
         }
         //TODO laad van database en vull viemodel
 
@@ -90,7 +93,9 @@ class PostUpdateFragment : Fragment() {
                         link,
                         Date(),
                         0,
-                        bytes
+                        bytes,
+                        postRead,
+                        postAnswered
                     )
                 }
                 if (updatePost != null) {

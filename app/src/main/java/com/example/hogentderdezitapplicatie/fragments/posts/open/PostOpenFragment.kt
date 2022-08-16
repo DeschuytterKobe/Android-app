@@ -68,11 +68,13 @@ class PostOpenFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
+        if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){
+            updatePost()
+        }
 
 
 
-
-        rReactionViewModel.reaction.observe(viewLifecycleOwner, Observer { reaction ->
+        rReactionViewModel.getReactionsFromPost(args.openCurrentPost.id).observe(viewLifecycleOwner, Observer { reaction ->
 
             adapter.setData(reaction)
         })
@@ -106,23 +108,45 @@ class PostOpenFragment : Fragment() {
     }
 
     private fun likePost(){
-        Log.d("test","in like post")
+
         lifecycleScope.launch{
             val updatesPost = Post(args.openCurrentPost.id,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,
                 args.openCurrentPost.title,
                 args.openCurrentPost.description,
                 args.openCurrentPost.link,Date(),
                 1,
-                args.openCurrentPost.picture)
+                args.openCurrentPost.picture,
+            args.openCurrentPost.read,
+            args.openCurrentPost.answered)
             mPostViewModel.updatePost(updatesPost)
         }
-        Log.d("test","gagng")
+
 
         findNavController().navigate(R.id.action_postOpenFragment_to_postListFragment2)
 
 
 
             }
+    private fun updatePost(){
+
+        lifecycleScope.launch{
+            val updatesPost = Post(args.openCurrentPost.id,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,
+                args.openCurrentPost.title,
+                args.openCurrentPost.description,
+                args.openCurrentPost.link,Date(),
+                args.openCurrentPost.liked,
+                args.openCurrentPost.picture,
+                true,
+                args.openCurrentPost.answered)
+            mPostViewModel.updatePost(updatesPost)
+        }
+
+
+
+
+
+
+    }
 
     private fun insertDataToDatabase() {
         val reactionContent = add_reactionContent.text.toString()

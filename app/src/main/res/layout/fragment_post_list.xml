@@ -8,8 +8,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/postRecyclerview"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="416dp"
+        android:layout_height="636dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"

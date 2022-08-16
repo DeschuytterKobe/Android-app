@@ -91,14 +91,18 @@
             android:id="@+id/action_postOpenFragment_to_postListFragment2"
             app:destination="@id/postListFragment2" />
     </fragment>
-    <activity
-        android:id="@+id/profileDetailActivity3"
-        android:name="com.example.hogentderdezitapplicatie.fragments.profile.ProfileDetailActivity"
-        android:label="activity_profile_detail"
-        tools:layout="@layout/activity_profile_detail" />
     <fragment
         android:id="@+id/overviewJokeFragment"
         android:name="com.example.hogentderdezitapplicatie.api.OverviewJokeFragment"
         android:label="OverviewJokeFragment"
         tools:layout="@layout/fragment_overview_joke"/>
+    <fragment
+        android:id="@+id/profileDetailFragment"
+        android:name="com.example.hogentderdezitapplicatie.fragments.profile.ProfileDetailFragment"
+        android:label="fragment_profile_detail"
+        tools:layout="@layout/fragment_profile_detail" >
+        <action
+            android:id="@+id/action_profileDetailFragment_to_postListFragment2"
+            app:destination="@id/postListFragment2" />
+    </fragment>
 </navigation>

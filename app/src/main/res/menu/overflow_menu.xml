@@ -8,7 +8,7 @@
         android:id="@+id/listFragment"
         android:title="users" />
     <item
-        android:id="@+id/profileDetailActivity3"
+        android:id="@+id/profileDetailFragment"
         android:title="about" />
     <item
         android:id="@+id/overviewJokeFragment"

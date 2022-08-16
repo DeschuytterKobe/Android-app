@@ -20,6 +20,9 @@ class Post(
     val postDate: Date?,
     var liked: Int,
     val picture: Bitmap,
+    val read : Boolean,
+    val answered : Boolean,
+
 
 
     ) : Parcelable

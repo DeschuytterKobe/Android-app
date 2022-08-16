@@ -96,7 +96,7 @@ class addPostFragment : Fragment() {
         if(inputCheck(title, description)){
             // Create User Object
             lifecycleScope.launch{
-                val post = Post(0 , userId!!,title, description,link,Date(),0,bytes )
+                val post = Post(0 , userId!!,title, description,link,Date(),0,bytes,false,false )
                 mPostViewModel.addPost(post)
             }
 

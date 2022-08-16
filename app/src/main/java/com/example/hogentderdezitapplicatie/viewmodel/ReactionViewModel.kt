@@ -39,10 +39,10 @@ class ReactionViewModel(application: Application) : AndroidViewModel(application
             rRepository.deleteReaction(reaction)
         }
     }
-    fun getReactionsFromPost(postId : Int) {
-        viewModelScope.launch(Dispatchers.IO){
-            rRepository.getReactionsFromPost(postId)
-        }
+     fun getReactionsFromPost(postId : Int) : LiveData<List<Reaction>> {
+
+           return rRepository.getReactionsFromPost(postId)
+
     }
 
 

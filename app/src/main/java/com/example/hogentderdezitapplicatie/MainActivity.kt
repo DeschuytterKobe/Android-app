@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
         })
 
         lifecycleScope.launch{
-            val post = Post(0,1,"testTitel","testDescription","www.google.be", Date(),1,getBitmap())
+            val post = Post(0,1,"testTitel","testDescription","www.google.be", Date(),1,getBitmap(),false,false)
             postViewModel.addPost(post)
-            val post2 = Post(0,2,"tweede","tewwedededed","www.google.be", Date(),1,getBitmap())
+            val post2 = Post(0,2,"tweede","tewwedededed","www.google.be", Date(),1,getBitmap(),false,false)
             postViewModel.addPost(post2)
         }
         postViewModel.posts.observe(this,{

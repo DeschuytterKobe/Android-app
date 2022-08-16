@@ -27,5 +27,9 @@ interface UserDao {
     @Query("SELECT * FROM user_table WHERE firstName LIKE :searchQuery OR lastName LIKE :searchQuery")
     fun searchDatabase(searchQuery: String): Flow<List<User>>
 
+    @Query("SELECT * FROM user_table WHERE  id = :userId ")
+    fun getUser(userId: Int): LiveData<User>
 
+    @Query("SELECT * FROM user_table WHERE  id = :userId ")
+    fun getUserByIdForList(userId: Int): User
 }

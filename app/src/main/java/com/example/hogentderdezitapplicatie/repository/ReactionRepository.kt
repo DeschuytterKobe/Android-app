@@ -8,15 +8,15 @@ import com.example.hogentderdezitapplicatie.model.Reaction
 
 class ReactionRepository (private val reactionDao : ReactionDao){
 
-        var readSpecific : LiveData<List<Reaction>> = reactionDao.getReactionsFromPost(1)
+//        var readSpecific : LiveData<List<Reaction>> = reactionDao.getReactionsFromPost(1)
         val readAllReactions : LiveData<List<Reaction>> = reactionDao.readAllReactions()
 
         suspend fun addReaction(reaction: Reaction){
             reactionDao.addReaction(reaction)
         }
 
-        suspend fun getReactionsFromPost(postId : Int){
-            readSpecific = reactionDao.getReactionsFromPost(postId)
+         fun getReactionsFromPost(postId : Int): LiveData<List<Reaction>>{
+            return  reactionDao.getReactionsFromPost(postId)
         }
 
         suspend fun updateReaction(reaction: Reaction){
