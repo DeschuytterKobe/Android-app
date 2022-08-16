@@ -23,11 +23,11 @@ import kotlinx.android.synthetic.main.custom_row_post.view.postlist_user_profile
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>() {
+class PostListAdapter(userViewModel: UserViewModel) : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>() {
 
     private var postList = emptyList<Post>()
     private lateinit var mPostViewModel: PostViewModel
-    private lateinit var uUserViewModel: UserViewModel
+    private  var uUserViewModel= userViewModel
 
     class MyPostViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
@@ -42,15 +42,18 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>()
 
     override fun onBindViewHolder(holder: MyPostViewHolder, position: Int) {
 
-//        uUserViewModel = ViewModelProvider(PostListFragment).get(UserViewModel::class.java)
+
         val currentItem = postList[position]
-//         val user = uUserViewModel.getUserByIdForList(currentItem.userId)
-        val sdf = SimpleDateFormat("dd/M/yyyy")
-        val currentDate = sdf.format(currentItem.postDate)
-//        holder.itemView.postId_txt.text = currentItem.id.toString()
+
+//        uUserViewModel.getUserByIdForList.observe(viewLifecycleOwner, Observer { post ->
+//            adapter.setData(post)
+////        })
+//        val user = uUserViewModel.getUserByIdForList(currentItem.userId)
+
 //        holder.itemView.postlist_user_firstname.text = user.firstName
 //        holder.itemView.postlist_user_profilephoto.setImageBitmap(user.profilePhoto)
-
+        val sdf = SimpleDateFormat("dd/M/yyyy")
+        val currentDate = sdf.format(currentItem.postDate)
         holder.itemView.postTitle_txt.text = currentItem.title
         holder.itemView.postDescription_txt.text = currentItem.description
         holder.itemView.postDate_txt.text= currentDate

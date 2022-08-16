@@ -29,7 +29,7 @@ class UserRepository(private val userDao : UserDao) {
     fun getUserWithId(userId: Int):LiveData<User> {
         return userDao.getUser(userId)
     }
-    fun getUserByIdForList(userId: Int): User{
+    suspend fun getUserByIdForList(userId: Int): User{
         return userDao.getUserByIdForList(userId)
     }
 }

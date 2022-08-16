@@ -55,7 +55,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             return uRepository.getUserWithId(userId)
 
     }
-    fun getUserByIdForList(userId : Int): User{
+    suspend fun getUserByIdForList(userId : Int): User{
         return uRepository.getUserByIdForList(userId)
 
     }

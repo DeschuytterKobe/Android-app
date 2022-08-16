@@ -2,7 +2,9 @@ package com.example.hogentderdezitapplicatie.fragments.posts.open
 
 import android.app.AlertDialog
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+
 import android.text.Editable
 import android.text.TextUtils
 import android.util.Log
@@ -56,20 +58,21 @@ class PostOpenFragment : Fragment() {
     ): View? {
 
 
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_post_open, container, false)
 
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
         rReactionViewModel = ViewModelProvider(this).get(ReactionViewModel::class.java)
 
-        val adapter = ReactionListAdapter()
+        val adapter = ReactionListAdapter(rReactionViewModel,requireContext())
         val recyclerView = view.reactionRecyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
         if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){
-            updatePost()
+            updatePost(false)
         }
 
 
@@ -78,6 +81,7 @@ class PostOpenFragment : Fragment() {
 
             adapter.setData(reaction)
         })
+
 
 
         view.open_postTitle.setText(args.openCurrentPost.title)
@@ -127,20 +131,35 @@ class PostOpenFragment : Fragment() {
 
 
             }
-    private fun updatePost(){
+    private fun updatePost(answered : Boolean){
+if(answered){
+    lifecycleScope.launch{
+        val updatesPost = Post(args.openCurrentPost.id,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,
+            args.openCurrentPost.title,
+            args.openCurrentPost.description,
+            args.openCurrentPost.link,Date(),
+            args.openCurrentPost.liked,
+            args.openCurrentPost.picture,
+            true,
+            true)
+        mPostViewModel.updatePost(updatesPost)
+    }
+}else {
+    lifecycleScope.launch {
+        val updatesPost = Post(
+            args.openCurrentPost.id, SecureFileHandle(context, AuthTokenSecureFile()).file.userId,
+            args.openCurrentPost.title,
+            args.openCurrentPost.description,
+            args.openCurrentPost.link, Date(),
+            args.openCurrentPost.liked,
+            args.openCurrentPost.picture,
+            true,
+            args.openCurrentPost.answered
+        )
+        mPostViewModel.updatePost(updatesPost)
+    }
 
-        lifecycleScope.launch{
-            val updatesPost = Post(args.openCurrentPost.id,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,
-                args.openCurrentPost.title,
-                args.openCurrentPost.description,
-                args.openCurrentPost.link,Date(),
-                args.openCurrentPost.liked,
-                args.openCurrentPost.picture,
-                true,
-                args.openCurrentPost.answered)
-            mPostViewModel.updatePost(updatesPost)
-        }
-
+}
 
 
 
@@ -154,15 +173,19 @@ class PostOpenFragment : Fragment() {
 
         if(inputCheck(reactionContent)){
             // Create User Object
-            val reaction = Reaction(0,args.openCurrentPost.id ,reactionContent)
+            val reaction = Reaction(0,args.openCurrentPost.id ,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,reactionContent)
             // Add Data to Database
             rReactionViewModel.addReaction(reaction)
+            if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){
+                updatePost(true)
+            }
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate Back
             findNavController().navigate(R.id.action_postOpenFragment_to_postListFragment2)
         }else{
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
         }
+
     }
     private fun inputCheck(reactionContent: String): Boolean{
         return !(TextUtils.isEmpty(reactionContent))
@@ -197,3 +220,4 @@ class PostOpenFragment : Fragment() {
     }
 
 }
+

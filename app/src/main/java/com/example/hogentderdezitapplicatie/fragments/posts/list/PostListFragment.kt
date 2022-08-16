@@ -38,12 +38,12 @@ class PostListFragment : Fragment() {
 
         uUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        uUserViewModel.getUserById(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId).observe(viewLifecycleOwner ) {
+//        uUserViewModel.getUserById(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId).observe(viewLifecycleOwner ) {
+//
+//
+//        }
 
-
-        }
-
-        val adapter = PostListAdapter()
+        val adapter = PostListAdapter(uUserViewModel)
         val recyclerView = view.postRecyclerview
         spacingItemsDecorator =  SpacingItemsDecorator(10)
 
@@ -87,7 +87,7 @@ class PostListFragment : Fragment() {
     }
     override fun onStart(){
         super.onStart()
-        val adapter = PostListAdapter()
+        val adapter = PostListAdapter(uUserViewModel)
 
         mPostViewModel.postsFromUser.observe(viewLifecycleOwner, Observer { post ->
             adapter.setData(post)

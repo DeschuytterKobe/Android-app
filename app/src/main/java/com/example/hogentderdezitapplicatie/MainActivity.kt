@@ -27,12 +27,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userViewModel : UserViewModel
     private lateinit var postViewModel: PostViewModel
     private lateinit var reactionViewModel: ReactionViewModel
-    private val postAdapter by lazy { PostListAdapter() }
+//    private val postAdapter by lazy { PostListAdapter(userViewModel) }
     private val adapter by lazy { ListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_login)
+
+
 
         setupActionBarWithNavController(findNavController(R.id.myNavHostFragment))
 
@@ -50,9 +52,9 @@ class MainActivity : AppCompatActivity() {
             val post2 = Post(0,2,"tweede","tewwedededed","www.google.be", Date(),1,getBitmap(),false,false)
             postViewModel.addPost(post2)
         }
-        postViewModel.posts.observe(this,{
-            postAdapter.setData(it)
-        })
+//        postViewModel.posts.observe(this,{
+//            postAdapter.setData(it)
+//        })
     }
 
     override fun onSupportNavigateUp(): Boolean {

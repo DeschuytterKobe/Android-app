@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,12 +57,14 @@ class ProfileDetailFragment : Fragment() {
        val view =  inflater.inflate(R.layout.fragment_profile_detail, container, false)
         imageView = view.profile_image_picture
         uUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        var userId = SecureFileHandle(context,  AuthTokenSecureFile()).file.userId
 
-        uUserViewModel.getUserById(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId).observe(viewLifecycleOwner ) {
+
+        uUserViewModel.getUserById(userId).observe(viewLifecycleOwner ) {
 
             view.profile_first_name.setText(it.firstName)
             view.profile_last_name.setText(it.lastName)
-            view.profile_image_picture.setImageBitmap(it.profilePhoto)
+            imageView.setImageBitmap(it.profilePhoto)
         }
 
 

@@ -12,6 +12,7 @@ class Reaction (
 
     @PrimaryKey(autoGenerate = true)
     val id:Int,
+    val userId: Int,
     val postId: Int,
     val content: String,
 //    val reactionDate : Date,
