@@ -106,14 +106,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reactionRecyclerview"
-        android:layout_width="414dp"
-        android:layout_height="172dp"
-        android:layout_marginBottom="200dp"
+        android:layout_width="412dp"
+        android:layout_height="224dp"
+        android:layout_marginBottom="184dp"
         android:background="#A3A2A2"
         android:backgroundTint="#9C9090"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

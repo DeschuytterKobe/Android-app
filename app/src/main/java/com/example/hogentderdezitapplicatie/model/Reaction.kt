@@ -15,7 +15,7 @@ class Reaction (
     val userId: Int,
     val postId: Int,
     val content: String,
-//    val reactionDate : Date,
+    val reactionDate : Date,
 
 
 

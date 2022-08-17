@@ -22,6 +22,7 @@ import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
 import kotlinx.android.synthetic.main.custom_reaction.view.*
 import kotlinx.android.synthetic.main.custom_row_post.view.*
 import kotlinx.android.synthetic.main.fragment_post_open.view.*
+import java.text.SimpleDateFormat
 
 class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Context) : RecyclerView.Adapter<ReactionListAdapter.MyReactionViewHolder>() {
 
@@ -41,11 +42,12 @@ class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Contex
         val currentItem = reactionList[position]
 
 //        holder.itemView.postId_txt.text = currentItem.id.toString()
-        holder.itemView.setBackgroundColor(Color.rgb(177, 187, 227))
-
+        holder.itemView.setBackgroundColor(Color.rgb(214, 187, 76))
+        val sdf = SimpleDateFormat("dd/M/yyyy")
+        val reactionPostDate = sdf.format(currentItem.reactionDate)
 
         if(currentItem.userId==3){
-            holder.itemView.setBackgroundColor(Color.rgb(227, 217, 177))
+            holder.itemView.setBackgroundColor(Color.rgb(76, 103, 214))
 
         }
         holder.itemView.reaction_content.setText(currentItem.content)
@@ -56,12 +58,13 @@ class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Contex
           holder.itemView.post_reaction_edit_btn.isVisible=false
           holder.itemView.post_reaction_delete_btn.isVisible= false
       }
+        holder.itemView.reaction_date.setText(reactionPostDate)
 
         holder.itemView.post_reaction_edit_btn.setOnClickListener{
 
             val newContent = holder.itemView.reaction_content.text
 
-            val newReaction = Reaction(currentItem.id,currentItem.postId,currentItem.userId,newContent.toString())
+            val newReaction = Reaction(currentItem.id,currentItem.postId,currentItem.userId,newContent.toString(),currentItem.reactionDate)
             editReaction(newReaction)
             holder.itemView.reaction_content.setText(newContent)
         }

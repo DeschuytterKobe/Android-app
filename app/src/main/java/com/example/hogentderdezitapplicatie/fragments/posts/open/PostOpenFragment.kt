@@ -178,7 +178,7 @@ if(answered){
 
         if(inputCheck(reactionContent)){
             // Create User Object
-            val reaction = Reaction(0,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,args.openCurrentPost.id,reactionContent)
+            val reaction = Reaction(0,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,args.openCurrentPost.id,reactionContent,Date())
             // Add Data to Database
             rReactionViewModel.addReaction(reaction)
             if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){

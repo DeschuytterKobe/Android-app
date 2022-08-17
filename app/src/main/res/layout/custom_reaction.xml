@@ -14,25 +14,24 @@
 
     <EditText
         android:id="@+id/reaction_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="361dp"
+        android:layout_height="36dp"
+
         android:text="Feeling good"
-
         android:textColor="#F3EFEF"
-        android:textSize="20sp"
-
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/post_reaction_delete_btn"
         android:layout_width="48dp"
         android:layout_height="53dp"
         android:layout_marginStart="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/reaction_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/post_reaction_edit_btn"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_delete" />
@@ -41,10 +40,26 @@
         android:id="@+id/post_reaction_edit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
         android:text="edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/reaction_content" />
+        app:layout_constraintBottom_toTopOf="@+id/reaction_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/reaction_date"
+        android:layout_width="106dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="111dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/reaction_content"
+        app:layout_constraintEnd_toStartOf="@+id/post_reaction_edit_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
