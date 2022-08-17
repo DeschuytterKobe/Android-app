@@ -19,8 +19,8 @@ class PostActivity : AppCompatActivity() {
         setContentView(R.layout.activity_post)
 
         val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
-        val myAwesomeTextView = findViewById<View>(R.id.txt_name_user) as TextView
-        myAwesomeTextView.setText(securefile.file.userId.toString())
+//        val myAwesomeTextView = findViewById<View>(R.id.txt_name_user) as TextView
+//        myAwesomeTextView.setText(securefile.file.userId.toString())
 
         setupActionBarWithNavController(findNavController(R.id.myNavHostFragment))
     }

@@ -1,24 +1,27 @@
 package com.example.hogentderdezitapplicatie.fragments.posts.list
 
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
+
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
+
 
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.example.hogentderdezitapplicatie.R
 
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.custom_row_post.view.*
-import kotlinx.android.synthetic.main.custom_row_post.view.postlist_user_firstname
-import kotlinx.android.synthetic.main.custom_row_post.view.postlist_user_profilephoto
+
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -54,7 +57,7 @@ class PostListAdapter(userViewModel: UserViewModel) : RecyclerView.Adapter<PostL
 //        holder.itemView.postlist_user_profilephoto.setImageBitmap(user.profilePhoto)
         val sdf = SimpleDateFormat("dd/M/yyyy")
         val currentDate = sdf.format(currentItem.postDate)
-        holder.itemView.postTitle_txt.text = currentItem.title
+//        holder.itemView.postTitle_txt.text = currentItem.title
         holder.itemView.postDescription_txt.text = currentItem.description
         holder.itemView.postDate_txt.text= currentDate
         if(currentItem.liked==1){
@@ -91,5 +94,7 @@ class PostListAdapter(userViewModel: UserViewModel) : RecyclerView.Adapter<PostL
     override fun getItemCount(): Int {
         return postList.size
     }
+
+
 
 }

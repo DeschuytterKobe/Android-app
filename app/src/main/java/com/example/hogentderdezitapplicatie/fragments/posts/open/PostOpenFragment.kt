@@ -1,6 +1,7 @@
 package com.example.hogentderdezitapplicatie.fragments.posts.open
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -27,6 +28,7 @@ import com.example.hogentderdezitapplicatie.fragments.posts.update.PostUpdateFra
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.model.User
+import com.example.hogentderdezitapplicatie.utils.SpacingItemsDecorator
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
 import kotlinx.android.synthetic.main.custom_row.*
@@ -50,7 +52,7 @@ class PostOpenFragment : Fragment() {
     private lateinit var mPostViewModel : PostViewModel
     private lateinit var rReactionViewModel : ReactionViewModel
     private var reactionList = emptyList<Reaction>()
-
+    private lateinit var spacingItemsDecorator : SpacingItemsDecorator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,10 +68,12 @@ class PostOpenFragment : Fragment() {
         rReactionViewModel = ViewModelProvider(this).get(ReactionViewModel::class.java)
 
         val adapter = ReactionListAdapter(rReactionViewModel,requireContext())
+
+        spacingItemsDecorator =  SpacingItemsDecorator(10)
         val recyclerView = view.reactionRecyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
+        recyclerView.addItemDecoration(spacingItemsDecorator)
 
         if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){
             updatePost(false)
@@ -86,6 +90,7 @@ class PostOpenFragment : Fragment() {
 
         view.open_postTitle.setText(args.openCurrentPost.title)
         view.open_postDescription.setText(args.openCurrentPost.description)
+
         view.open_postLink.setText(args.openCurrentPost.link)
         view.img_open_post.load(args.openCurrentPost.picture)
 
@@ -173,7 +178,7 @@ if(answered){
 
         if(inputCheck(reactionContent)){
             // Create User Object
-            val reaction = Reaction(0,args.openCurrentPost.id ,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,reactionContent)
+            val reaction = Reaction(0,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,args.openCurrentPost.id,reactionContent)
             // Add Data to Database
             rReactionViewModel.addReaction(reaction)
             if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){

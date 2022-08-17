@@ -2,6 +2,7 @@ package com.example.hogentderdezitapplicatie.fragments.posts.open
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
 import kotlinx.android.synthetic.main.custom_reaction.view.*
 import kotlinx.android.synthetic.main.custom_row_post.view.*
+import kotlinx.android.synthetic.main.fragment_post_open.view.*
 
 class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Context) : RecyclerView.Adapter<ReactionListAdapter.MyReactionViewHolder>() {
 
@@ -39,6 +41,13 @@ class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Contex
         val currentItem = reactionList[position]
 
 //        holder.itemView.postId_txt.text = currentItem.id.toString()
+        holder.itemView.setBackgroundColor(Color.rgb(177, 187, 227))
+
+
+        if(currentItem.userId==3){
+            holder.itemView.setBackgroundColor(Color.rgb(227, 217, 177))
+
+        }
         holder.itemView.reaction_content.setText(currentItem.content)
       if(currentItem.userId == SecureFileHandle(contextHere,  AuthTokenSecureFile()).file.userId ){
           holder.itemView.post_reaction_edit_btn.isVisible=true
