@@ -1,6 +1,7 @@
 package com.example.hogentderdezitapplicatie.fragments.posts.open
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
@@ -31,6 +32,8 @@ import com.example.hogentderdezitapplicatie.model.User
 import com.example.hogentderdezitapplicatie.utils.SpacingItemsDecorator
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
+import com.klinker.android.link_builder.Link
+import com.klinker.android.link_builder.applyLinks
 import kotlinx.android.synthetic.main.custom_row.*
 import kotlinx.android.synthetic.main.custom_row.view.*
 import kotlinx.android.synthetic.main.fragment_add.*
@@ -58,7 +61,6 @@ class PostOpenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
 
 
         // Inflate the layout for this fragment
@@ -91,8 +93,40 @@ class PostOpenFragment : Fragment() {
         view.open_postTitle.setText(args.openCurrentPost.title)
         view.open_postDescription.setText(args.openCurrentPost.description)
 
+        Log.d("erzerzer",args.openCurrentPost.link)
+
+        val textViewee = "https://www."
         view.open_postLink.setText(args.openCurrentPost.link)
+        val randomPostLink = Link(args.openCurrentPost.link)
+            .setTextColor(Color.BLUE)
+            .setTextColorOfHighlightedLink(Color.CYAN)
+            .setHighlightAlpha(.4f)
+            .setUnderlined(true)
+            .setBold(false)
+            .setOnClickListener {
+                val url = args.openCurrentPost.link
+                Log.d("test", url)
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse( url)
+                )
+                startActivity(urlIntent)
+                Toast.makeText(context, "link clicked", Toast.LENGTH_SHORT).show()
+            }
+
+        view.open_postLink.applyLinks(randomPostLink)
+
+
+
         view.img_open_post.load(args.openCurrentPost.picture)
+//        button.setOnClickListener {
+//            val url = editText.text.toString()
+//            val urlIntent = Intent(
+//                Intent.ACTION_VIEW,
+//                Uri.parse(textView.text.toString() + url)
+//            )
+//            startActivity(urlIntent)
+//        }
 
         view.AddReactionButton.setOnClickListener {
             insertDataToDatabase()
@@ -115,6 +149,8 @@ class PostOpenFragment : Fragment() {
         }
         return view
     }
+
+
 
     private fun likePost(){
 

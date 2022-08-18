@@ -90,7 +90,7 @@ class addPostFragment : Fragment() {
         val description = add_postDescription.text.toString()
         val link = add_postLink.text.toString()
 //        val image = add_image_to_post
-
+        Log.d("tonen van link",link)
         val bytes= (imageView.drawable as BitmapDrawable).bitmap
 
         if(inputCheck(title, description)){
