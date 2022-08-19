@@ -21,6 +21,9 @@ class PostRepository(private val postDao : PostDao, userId: Int) {
      fun readPostWithId(postId: Int?): LiveData<Post>{
        return postDao.readPostWithId(postId)
     }
+    fun readAllPostsFromUserAndFavorite(userId: Int):LiveData<List<Post>>{
+        return postDao.readAllPostsFromUserAndFavorite(userId)
+    }
 
 
     suspend fun updatePost(post: Post){

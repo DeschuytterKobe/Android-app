@@ -31,9 +31,11 @@ import java.util.*
 
 import android.graphics.BitmapFactory
 import android.widget.ImageView
+import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
 import java.io.File
 import java.io.FileInputStream
 import com.example.hogentderdezitapplicatie.domein.ImageSaver
+import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.model.User
 import kotlinx.coroutines.*
 import okhttp3.internal.wait
@@ -123,6 +125,15 @@ class PostListAdapter(userViewModel: UserViewModel) :
                     //holder.itemView.postTitle_txt.text = currentItem.title
                     holder.itemView.postDescription_txt.text = currentItem.description
                     holder.itemView.postDate_txt.text = currentDate
+        if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){
+            holder.itemView.postLikeButton.isVisible=false
+            if (currentItem.read) {
+                holder.itemView.postlist_seen_image.isVisible = true
+            } else holder.itemView.postlist_seen_image.isVisible = false
+            if (currentItem.answered) {
+                holder.itemView.postlist_answered_image.isVisible = true
+            } else holder.itemView.postlist_answered_image.isVisible = false
+        }else{
                     if (currentItem.liked == 1) {
 
                         holder.itemView.postLikeButton.isVisible = true
@@ -147,7 +158,7 @@ class PostListAdapter(userViewModel: UserViewModel) :
 
         //    }
 
-    }
+    }}
 
 
     fun setData(post: List<Post>) {

@@ -43,7 +43,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             pRepository.addPost(post)
         }
     }
-
+    fun readAllPostsFromUserAndFavorite(userId: Int):LiveData<List<Post>>{
+        return pRepository.readAllPostsFromUserAndFavorite(userId)
+    }
 
 
 

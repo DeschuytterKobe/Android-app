@@ -5,6 +5,7 @@ import android.util.Log
 import android.util.Log.ERROR
 import android.view.*
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,7 +26,7 @@ class PostListFragment : Fragment() {
     private lateinit var mPostViewModel: PostViewModel
     private lateinit var uUserViewModel: UserViewModel
     private lateinit var spacingItemsDecorator: SpacingItemsDecorator
-
+    private var liked : Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +61,38 @@ class PostListFragment : Fragment() {
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
         Log.e("DBG","in postlist fragementbase after creation postvm");
 
+    if(userId ==3){
+        view.showLikedPostsButton.isVisible=false
+    }
+
+            view.showLikedPostsButton.setOnClickListener {
+                if(liked){
+                    if (userId == 3) {
+
+                        mPostViewModel.readAllPosts().observe(viewLifecycleOwner, Observer { post ->
+                            adapter.setData(post)
+                        })
+                    } else {
+
+                        mPostViewModel.readAllPostsFromUser(userId)
+                            .observe(viewLifecycleOwner, Observer { post ->
+                                adapter.setData(post)
+                            })
+                    }
+                    liked=false
+                    view.showLikedPostsButton.setText("liked")
+                }else{
+                    mPostViewModel.readAllPostsFromUserAndFavorite(userId)
+                        .observe(viewLifecycleOwner, Observer { post ->
+                            adapter.setData(post)
+                        })
+                    liked = true
+                    view.showLikedPostsButton.setText("refresh")
+                }
+
+
+
+            }
 
 
                 if (userId == 3) {

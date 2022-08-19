@@ -158,7 +158,7 @@ class PostOpenFragment : Fragment() {
     private fun likePost(){
 
         lifecycleScope.launch{
-            val updatesPost = Post(args.openCurrentPost.id,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,
+            val updatesPost = Post(args.openCurrentPost.id,args.openCurrentPost.userId,
                 args.openCurrentPost.title,
                 args.openCurrentPost.description,
                 args.openCurrentPost.link,Date(),

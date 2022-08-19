@@ -17,7 +17,7 @@ interface PostDao {
     @Query("SELECT * FROM post_table  WHERE Id = :postId")
     fun readPostWithId(postId: Int?): LiveData<Post>
 
-    @Query("SELECT * FROM post_table WHERE userId = :userId ")
+    @Query("SELECT * FROM post_table WHERE userId = :userId ORDER BY postDate DESC ")
     fun readAllPostsFromUser(userId : Int): LiveData<List<Post>>
 
     @Query("SELECT * FROM post_table WHERE userId = :userId AND liked == 1")

@@ -14,7 +14,7 @@ interface ReactionDao {
         @Query("SELECT * FROM reaction_table ORDER BY id ASC")
         fun readAllReactions(): LiveData<List<Reaction>>
 
-        @Query("SELECT * FROM reaction_table WHERE Postid = :key")
+        @Query("SELECT * FROM reaction_table WHERE Postid = :key ORDER BY reactionDate DESC")
         fun getReactionsFromPost(key : Int): LiveData<List<Reaction>>
 
         @Update
