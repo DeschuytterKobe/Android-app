@@ -33,6 +33,7 @@ import com.example.hogentderdezitapplicatie.utils.SpacingItemsDecorator
 import com.example.hogentderdezitapplicatie.viewmodel.PostOpenViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
+import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import com.klinker.android.link_builder.Link
 import com.klinker.android.link_builder.applyLinks
 import kotlinx.android.synthetic.main.custom_row.*
@@ -55,6 +56,7 @@ class PostOpenFragment : Fragment() {
     private val args by navArgs<PostOpenFragmentArgs>()
     private lateinit var mPostViewModel : PostOpenViewModel
     private lateinit var rReactionViewModel : ReactionViewModel
+    private lateinit var uUserViewModel: UserViewModel
     private var reactionList = emptyList<Reaction>()
     private lateinit var spacingItemsDecorator : SpacingItemsDecorator
 
@@ -69,8 +71,8 @@ class PostOpenFragment : Fragment() {
 
         mPostViewModel = ViewModelProvider(this).get(PostOpenViewModel::class.java)
         rReactionViewModel = ViewModelProvider(this).get(ReactionViewModel::class.java)
-
-        val adapter = ReactionListAdapter(rReactionViewModel,requireContext())
+        uUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        val adapter = ReactionListAdapter(rReactionViewModel,requireContext(),uUserViewModel)
 
         spacingItemsDecorator =  SpacingItemsDecorator(10)
         val recyclerView = view.reactionRecyclerview
@@ -176,7 +178,7 @@ class PostOpenFragment : Fragment() {
     private fun updatePost(answered : Boolean){
 if(answered){
     lifecycleScope.launch{
-        val updatesPost = Post(args.openCurrentPost.id,SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,
+        val updatesPost = Post(args.openCurrentPost.id,args.openCurrentPost.userId,
             args.openCurrentPost.title,
             args.openCurrentPost.description,
             args.openCurrentPost.link,Date(),
@@ -189,7 +191,7 @@ if(answered){
 }else {
     lifecycleScope.launch {
         val updatesPost = Post(
-            args.openCurrentPost.id, SecureFileHandle(context, AuthTokenSecureFile()).file.userId,
+            args.openCurrentPost.id, args.openCurrentPost.userId,
             args.openCurrentPost.title,
             args.openCurrentPost.description,
             args.openCurrentPost.link, Date(),

@@ -19,17 +19,24 @@ import com.example.hogentderdezitapplicatie.fragments.posts.list.PostListFragmen
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
+import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.custom_reaction.view.*
 import kotlinx.android.synthetic.main.custom_row_post.view.*
 import kotlinx.android.synthetic.main.fragment_post_open.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 
-class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Context) : RecyclerView.Adapter<ReactionListAdapter.MyReactionViewHolder>() {
+class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Context,userViewModel: UserViewModel) : RecyclerView.Adapter<ReactionListAdapter.MyReactionViewHolder>() {
 
     private var reactionList = emptyList<Reaction>()
     private  var rReactionViewModel = reactionViewModel
+    private  var uUserViewModel = userViewModel
     private var contextHere = context
     class MyReactionViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+
 
 
     }
@@ -41,6 +48,23 @@ class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Contex
     override fun onBindViewHolder(holder: MyReactionViewHolder, position: Int) {
         val currentItem = reactionList[position]
 
+        GlobalScope.launch {
+            val user = uUserViewModel.getUserByIdForList(currentItem.userId)
+            withContext(Dispatchers.Main){
+                holder.itemView.reaction_name.text = user.firstName
+            }
+        }
+        holder.itemView.post_reaction_edit_btn.setOnClickListener{
+            Log.e("in reactionediting","OFNIETOFWEL")
+            val newContent = holder.itemView.reaction_content.text
+            Log.e("in reactionEditing","${newContent}")
+            val newReaction = Reaction(currentItem.id,currentItem.userId,currentItem.postId,newContent.toString(),currentItem.reactionDate)
+            editReaction(newReaction)
+//            holder.itemView.reaction_content.setText(newContent)
+        }
+        holder.itemView.post_reaction_delete_btn.setOnClickListener{
+            deleteReaction(currentItem)
+        }
 //        holder.itemView.postId_txt.text = currentItem.id.toString()
         holder.itemView.setBackgroundColor(Color.rgb(214, 187, 76))
         val sdf = SimpleDateFormat("dd/M/yyyy")
@@ -60,17 +84,7 @@ class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Contex
       }
         holder.itemView.reaction_date.setText(reactionPostDate)
 
-        holder.itemView.post_reaction_edit_btn.setOnClickListener{
 
-            val newContent = holder.itemView.reaction_content.text
-
-            val newReaction = Reaction(currentItem.id,currentItem.postId,currentItem.userId,newContent.toString(),currentItem.reactionDate)
-            editReaction(newReaction)
-            holder.itemView.reaction_content.setText(newContent)
-        }
-        holder.itemView.post_reaction_delete_btn.setOnClickListener{
-            deleteReaction(currentItem)
-        }
 
 
     }

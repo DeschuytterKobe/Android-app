@@ -22,9 +22,6 @@ import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.custom_row_post.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.lang.Exception
 
 
@@ -37,9 +34,9 @@ import android.widget.ImageView
 import java.io.File
 import java.io.FileInputStream
 import com.example.hogentderdezitapplicatie.domein.ImageSaver
-
-
-
+import com.example.hogentderdezitapplicatie.model.User
+import kotlinx.coroutines.*
+import okhttp3.internal.wait
 
 
 class PostListAdapter(userViewModel: UserViewModel) :
@@ -78,14 +75,14 @@ class PostListAdapter(userViewModel: UserViewModel) :
 //            adapter.setData(post)
 ////        })
 
-        holder.itemView.postLikeButton.setOnClickListener{
-            val updatePost = Post(currentItem.id,currentItem.userId,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1,currentItem.picture,currentItem.read,currentItem.answered)
-            Thread{
-                mPostViewModel.updatePost(updatePost)
-            }.start()
-
-
-        }
+//        holder.itemView.postLikeButton.setOnClickListener{
+//            val updatePost = Post(currentItem.id,currentItem.userId,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1,currentItem.picture,currentItem.read,currentItem.answered)
+//            Thread{
+//                mPostViewModel.updatePost(updatePost)
+//            }.start()
+//
+//
+//        }
 
         holder.itemView.postRowLayout.setOnClickListener {
             val action =
@@ -96,24 +93,31 @@ class PostListAdapter(userViewModel: UserViewModel) :
         }
         // CoroutineScope(Dispatchers.Default).launch {
 
-//        try {
-//            Thread {
-//                try {
 
-            Thread{
-                    val user = uUserViewModel.getUserByIdForList(currentItem.userId)
+        GlobalScope.launch {
+            val user = uUserViewModel.getUserByIdForList(currentItem.userId)
+            withContext(Dispatchers.Main){
+                holder.itemView.postlist_user_firstname.text = user.firstName
+            }
+        }
 
-//                    laad file van uripath door user.profilePhoteUri
+//            Thread{
+//
+//
+////                    laad file van uripath door user.profilePhoteUri
+//
+////                    val bitmap =
+////                        ImageSaver(context).setFileName(user.profilePhotoUri).setDirectoryName("images")
+////                            .load()
+////                    holder.itemView.postlist_user_profilephoto.setImageBitmap(bitmap)
+//
+//
+//
+//
+//            }.start()
 
-//                    val bitmap =
-//                        ImageSaver(context).setFileName(user.profilePhotoUri).setDirectoryName("images")
-//                            .load()
-//                    holder.itemView.postlist_user_profilephoto.setImageBitmap(bitmap)
 
 
-
-                    holder.itemView.postlist_user_firstname.text = user.firstName
-            }.start()
                     val sdf = SimpleDateFormat("dd/M/yyyy")
                     val currentDate = sdf.format(currentItem.postDate)
                     //holder.itemView.postTitle_txt.text = currentItem.title
