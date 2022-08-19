@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 
 import androidx.lifecycle.lifecycleScope
 
@@ -32,15 +33,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_login)
+        setContentView(R.layout.fragment_post_list)
 
+    Log.e("test waar ik inkom","in nav")
 
-
-        setupActionBarWithNavController(findNavController(R.id.myNavHostFragment))
+//        setupActionBarWithNavController(findNavController(R.id.myNavHostFragment))
 
         lifecycleScope.launch{
-            val user = User(0,"kobe","deschuytter",2,getBitmap())
-            userViewModel.addUser(user)
+
+            //val user = User(0,"kobe","deschuytter",2,getBitmap())
+           // userViewModel.addUser(user)
         }
         userViewModel.users.observe(this,{
             adapter.setData(it)
@@ -57,10 +59,10 @@ class MainActivity : AppCompatActivity() {
 //        })
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.myNavHostFragment)
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        val navController = findNavController(R.id.myNavHostFragment)
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
 
     private suspend fun getBitmap(): Bitmap {
         val loading = ImageLoader(this)

@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.hogentderdezitapplicatie.databinding.FragmentLoginBinding
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationAPIClient

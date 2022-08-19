@@ -1,6 +1,7 @@
 package com.example.hogentderdezitapplicatie.fragments.posts.list
 
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
@@ -21,27 +22,52 @@ import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.custom_row_post.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PostListAdapter(userViewModel: UserViewModel) : RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>() {
+
+import android.graphics.BitmapFactory
+import android.widget.ImageView
+import java.io.File
+import java.io.FileInputStream
+import com.example.hogentderdezitapplicatie.domein.ImageSaver
+
+
+
+
+
+class PostListAdapter(userViewModel: UserViewModel) :
+    RecyclerView.Adapter<PostListAdapter.MyPostViewHolder>() {
 
     private var postList = emptyList<Post>()
     private lateinit var mPostViewModel: PostViewModel
-    private  var uUserViewModel= userViewModel
+    private var uUserViewModel = userViewModel
 
-    class MyPostViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    private lateinit var context: Context;
+
+    class MyPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPostViewHolder {
-        return MyPostViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.custom_row_post,parent,false))
+
+      context = parent.context;
+        return MyPostViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.custom_row_post, parent, false)
+        )
 
 
     }
+
+
+
 
     override fun onBindViewHolder(holder: MyPostViewHolder, position: Int) {
 
@@ -51,42 +77,76 @@ class PostListAdapter(userViewModel: UserViewModel) : RecyclerView.Adapter<PostL
 //        uUserViewModel.getUserByIdForList.observe(viewLifecycleOwner, Observer { post ->
 //            adapter.setData(post)
 ////        })
-//        val user = uUserViewModel.getUserByIdForList(currentItem.userId)
 
-//        holder.itemView.postlist_user_firstname.text = user.firstName
-//        holder.itemView.postlist_user_profilephoto.setImageBitmap(user.profilePhoto)
-        val sdf = SimpleDateFormat("dd/M/yyyy")
-        val currentDate = sdf.format(currentItem.postDate)
-//        holder.itemView.postTitle_txt.text = currentItem.title
-        holder.itemView.postDescription_txt.text = currentItem.description
-        holder.itemView.postDate_txt.text= currentDate
-        if(currentItem.liked==1){
-          
-            holder.itemView.postLikeButton.isVisible = true
-        }else  holder.itemView.postLikeButton.isVisible = false
-        if(currentItem.read){
-            holder.itemView.postlist_seen_image.isVisible=true
-        }else holder.itemView.postlist_seen_image.isVisible=false
-        if(currentItem.answered){
-            holder.itemView.postlist_answered_image.isVisible=true
-        }else holder.itemView.postlist_answered_image.isVisible=false
+        holder.itemView.postLikeButton.setOnClickListener{
+            val updatePost = Post(currentItem.id,currentItem.userId,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1,currentItem.picture,currentItem.read,currentItem.answered)
+            Thread{
+                mPostViewModel.updatePost(updatePost)
+            }.start()
 
-//        holder.itemView.postLikeButton.setOnClickListener{
-//            val updatePost = Post(currentItem.id,currentItem.userId,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1,currentItem.picture)
-//
-//            mPostViewModel.updatePost(updatePost)
-//            Log.d("in postlistadapter","liked the post")
-//        }
 
-        holder.itemView.postRowLayout.setOnClickListener{
-            val action = PostListFragmentDirections.actionPostListFragment2ToPostOpenFragment(currentItem)
+        }
+
+        holder.itemView.postRowLayout.setOnClickListener {
+            val action =
+                PostListFragmentDirections.actionPostListFragment2ToPostOpenFragment(
+                    currentItem
+                )
             holder.itemView.findNavController().navigate(action)
         }
+        // CoroutineScope(Dispatchers.Default).launch {
+
+//        try {
+//            Thread {
+//                try {
+
+            Thread{
+                    val user = uUserViewModel.getUserByIdForList(currentItem.userId)
+
+//                    laad file van uripath door user.profilePhoteUri
+
+//                    val bitmap =
+//                        ImageSaver(context).setFileName(user.profilePhotoUri).setDirectoryName("images")
+//                            .load()
+//                    holder.itemView.postlist_user_profilephoto.setImageBitmap(bitmap)
+
+
+
+                    holder.itemView.postlist_user_firstname.text = user.firstName
+            }.start()
+                    val sdf = SimpleDateFormat("dd/M/yyyy")
+                    val currentDate = sdf.format(currentItem.postDate)
+                    //holder.itemView.postTitle_txt.text = currentItem.title
+                    holder.itemView.postDescription_txt.text = currentItem.description
+                    holder.itemView.postDate_txt.text = currentDate
+                    if (currentItem.liked == 1) {
+
+                        holder.itemView.postLikeButton.isVisible = true
+                    } else holder.itemView.postLikeButton.isVisible = false
+                    if (currentItem.read) {
+                        holder.itemView.postlist_seen_image.isVisible = true
+                    } else holder.itemView.postlist_seen_image.isVisible = false
+                    if (currentItem.answered) {
+                        holder.itemView.postlist_answered_image.isVisible = true
+                    } else holder.itemView.postlist_answered_image.isVisible = false
+
+
+
+//                } catch (e: Exception) {
+//                    print(e)
+//                }
+//            }.start();
+//        } catch (e: Exception) {
+//            print(e)
+//        }
+
+
+        //    }
+
     }
 
 
-
-    fun setData(post: List<Post>){
+    fun setData(post: List<Post>) {
         this.postList = post
         notifyDataSetChanged()
     }
@@ -94,7 +154,6 @@ class PostListAdapter(userViewModel: UserViewModel) : RecyclerView.Adapter<PostL
     override fun getItemCount(): Int {
         return postList.size
     }
-
 
 
 }

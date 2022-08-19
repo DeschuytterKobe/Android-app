@@ -2,6 +2,7 @@ package com.example.hogentderdezitapplicatie.fragments.posts.list
 
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.ERROR
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -21,89 +22,103 @@ import kotlinx.android.synthetic.main.fragment_post_list.view.*
 
 class PostListFragment : Fragment() {
 
-    private lateinit var mPostViewModel : PostViewModel
+    private lateinit var mPostViewModel: PostViewModel
     private lateinit var uUserViewModel: UserViewModel
-    private lateinit var spacingItemsDecorator : SpacingItemsDecorator
+    private lateinit var spacingItemsDecorator: SpacingItemsDecorator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        var userId = SecureFileHandle(context,  AuthTokenSecureFile()).file.userId
 
+
+        try {
+
+
+        // Inflate the layout for this fragment
+        var userId = SecureFileHandle(context, AuthTokenSecureFile()).file.userId
 
 
         val view = inflater.inflate(R.layout.fragment_post_list, container, false)
 
+        Log.e("DBG","in postlist fragementbase before creation userviewmodel");
         uUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        Log.e("DBG","in postlist fragementbase after creation userviewmodel");
 
-//        uUserViewModel.getUserById(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId).observe(viewLifecycleOwner ) {
-//
-//
-//        }
+
 
         val adapter = PostListAdapter(uUserViewModel)
         val recyclerView = view.postRecyclerview
-        spacingItemsDecorator =  SpacingItemsDecorator(10)
+        spacingItemsDecorator = SpacingItemsDecorator(10)
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(spacingItemsDecorator)
+
+        Log.e("DBG","in postlist fragementbase before creation postvm");
+
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
-
-    if(userId==3){
-    mPostViewModel.posts.observe(viewLifecycleOwner, Observer { post ->
-        adapter.setData(post)
-    })
-    }else{
-
-    mPostViewModel.postsFromUser.observe(viewLifecycleOwner, Observer { post ->
-        adapter.setData(post)
-    })
-    }
+        Log.e("DBG","in postlist fragementbase after creation postvm");
 
 
-        view.floatingActionButtonForPosts.setOnClickListener{
+
+                if (userId == 3) {
+
+                    mPostViewModel.readAllPosts().observe(viewLifecycleOwner, Observer { post ->
+                        adapter.setData(post)
+                    })
+                } else {
+
+                    mPostViewModel.readAllPostsFromUser(userId)
+                        .observe(viewLifecycleOwner, Observer { post ->
+                            adapter.setData(post)
+                        })
+                }
+
+
+        view.floatingActionButtonForPosts.setOnClickListener {
 
 
             var userId2 = arguments?.getInt("userId")
 
             var bundle = Bundle()
-            if(userId2 == 0 || userId2 == null) {
+            if (userId2 == 0 || userId2 == null) {
 
                 bundle.putInt("userId", userId)
-            }else{
+            } else {
 
                 if (userId2 != null) {
-                    bundle.putInt("userId",userId2)
+                    bundle.putInt("userId", userId2)
                 }
             }
-            findNavController().navigate(R.id.action_postListFragment2_to_addPostFragment,bundle)
+            findNavController().navigate(R.id.action_postListFragment2_to_addPostFragment, bundle)
         }
         setHasOptionsMenu(true)
         return view
+        }catch (e: Exception){
+            Log.e("hello", e.toString())
+            throw e;
+        }
 
     }
-    override fun onStart(){
-        super.onStart()
-        val adapter = PostListAdapter(uUserViewModel)
-
-        mPostViewModel.postsFromUser.observe(viewLifecycleOwner, Observer { post ->
-            adapter.setData(post)
-        })
-    }
-//    override fun onResume(){
 //
+//    override fun onStart() {
+//        super.onStart()
+//        val adapter = PostListAdapter(uUserViewModel)
+//
+//        mPostViewModel.readAllPostsFromUser(1 ).observe(viewLifecycleOwner, Observer { post ->
+//            adapter.setData(post)
+//        })
 //    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.overflow_menu,menu)
+        inflater?.inflate(R.menu.overflow_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item!!,requireView().findNavController())||
-        return super.onOptionsItemSelected(item)
+        return NavigationUI.onNavDestinationSelected(item!!, requireView().findNavController()) ||
+                return super.onOptionsItemSelected(item)
     }
 }

@@ -30,6 +30,7 @@ import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.model.User
 import com.example.hogentderdezitapplicatie.utils.SpacingItemsDecorator
+import com.example.hogentderdezitapplicatie.viewmodel.PostOpenViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
 import com.klinker.android.link_builder.Link
@@ -52,7 +53,7 @@ import java.util.*
 class PostOpenFragment : Fragment() {
 
     private val args by navArgs<PostOpenFragmentArgs>()
-    private lateinit var mPostViewModel : PostViewModel
+    private lateinit var mPostViewModel : PostOpenViewModel
     private lateinit var rReactionViewModel : ReactionViewModel
     private var reactionList = emptyList<Reaction>()
     private lateinit var spacingItemsDecorator : SpacingItemsDecorator
@@ -66,7 +67,7 @@ class PostOpenFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_post_open, container, false)
 
-        mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
+        mPostViewModel = ViewModelProvider(this).get(PostOpenViewModel::class.java)
         rReactionViewModel = ViewModelProvider(this).get(ReactionViewModel::class.java)
 
         val adapter = ReactionListAdapter(rReactionViewModel,requireContext())

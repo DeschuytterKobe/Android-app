@@ -36,7 +36,7 @@ class UpdateFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_update, container, false)
 
-        mUserViewModel= ViewModelProvider(this).get(UserViewModel::class.java)
+        //mUserViewModel= ViewModelProvider(this).get(UserViewModel::class.java)
         view.updateFirstName_et.setText(args.currentUser.firstName)
         view.updateLastName_et.setText(args.currentUser.lastName)
         //view.updateAvatar.setText(args.currentUser.avatar)
@@ -56,8 +56,12 @@ class UpdateFragment : Fragment() {
         val lastName = updateLastName_et.text.toString()
         val avatar = Integer.parseInt(updateAvatar.text.toString())
 
+
+
+
+
         if(inputCheck(firstName,lastName,updateAvatar.text)){
-            lifecycleScope.launch{
+          /*  lifecycleScope.launch{
                 val updatedUser = User(args.currentUser.id,firstName,lastName,avatar,getBitmap())
                 mUserViewModel.updateUser(updatedUser)
             }
@@ -65,7 +69,7 @@ class UpdateFragment : Fragment() {
 
 
 
-            Toast.makeText(requireContext(),"Succesfully updated",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"Succesfully updated",Toast.LENGTH_SHORT).show()*/
 
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
 

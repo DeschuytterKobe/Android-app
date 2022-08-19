@@ -32,18 +32,18 @@ class HomeFragment : Fragment()
          val view = inflater.inflate(R.layout.fragment_home, container, false)
 
 
-         setHasOptionsMenu(true)
+//         setHasOptionsMenu(true)
          return view
 
      }
 
-         override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-             super.onCreateOptionsMenu(menu, inflater)
-             inflater?.inflate(R.menu.overflow_menu,menu)
-         }
-
-         override fun onOptionsItemSelected(item: MenuItem): Boolean {
-             return NavigationUI.onNavDestinationSelected(item!!,requireView().findNavController())||
-                     return super.onOptionsItemSelected(item)
-         }
+//         override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//             super.onCreateOptionsMenu(menu, inflater)
+//             inflater?.inflate(R.menu.overflow_menu,menu)
+//         }
+//
+//         override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//             return NavigationUI.onNavDestinationSelected(item!!,requireView().findNavController())||
+//                     return super.onOptionsItemSelected(item)
+//         }
 }

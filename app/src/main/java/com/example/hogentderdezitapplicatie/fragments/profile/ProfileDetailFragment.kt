@@ -21,6 +21,7 @@ import androidx.navigation.findNavController
 
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
+import com.example.hogentderdezitapplicatie.domein.ImageSaver
 import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.User
@@ -64,7 +65,11 @@ class ProfileDetailFragment : Fragment() {
 
             view.profile_first_name.setText(it.firstName)
             view.profile_last_name.setText(it.lastName)
-            imageView.setImageBitmap(it.profilePhoto)
+
+            val bitmap =
+                ImageSaver(context).setFileName(it.profilePhotoUri).setDirectoryName("images")
+                    .load()
+            imageView.setImageBitmap(bitmap)
         }
 
 
@@ -85,6 +90,12 @@ class ProfileDetailFragment : Fragment() {
         val profileLastName = profile_last_name.text.toString()
         val bytes= (profile_image_picture.drawable as BitmapDrawable).bitmap
 
+
+        var filename = UUID.randomUUID().toString();
+
+
+        ImageSaver(context).setFileName(filename).setDirectoryName("images")
+            .save(bytes)
         if(inputCheck(profileFirstName,profileLastName)){
             lifecycleScope.launch{
                 val updateUser =
@@ -93,7 +104,7 @@ class ProfileDetailFragment : Fragment() {
                         profileFirstName,
                         profileLastName,
                         1,
-                        bytes
+                        filename
                     )
 
                 if (updateUser != null) {

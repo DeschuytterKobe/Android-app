@@ -1,14 +1,18 @@
 package com.example.hogentderdezitapplicatie.fragments.users.add
 
+import android.R.attr
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +26,14 @@ import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 import kotlinx.coroutines.launch
+import android.R.attr.path
+
+import java.io.*
+
+import android.content.ContextWrapper
+import com.example.hogentderdezitapplicatie.domein.ImageSaver
+import java.lang.Exception
+import java.util.*
 
 
 class AddFragment : Fragment() {
@@ -43,6 +55,7 @@ class AddFragment : Fragment() {
         return view
     }
 
+
     private fun insertDataToDatabase() {
         val firstName = addFirstName_et.text.toString()
         val lastName = addLastName_et.text.toString()
@@ -51,8 +64,18 @@ class AddFragment : Fragment() {
         if(inputCheck(firstName, lastName, avatar)){
             // Create User Object
             lifecycleScope.launch{
-                val user = User(0, firstName, lastName,Integer.parseInt(avatar.toString()),getBitmap())
-                mUserViewModel.addUser(user)
+
+                var bytes = getBitmap();
+                var filename = UUID.randomUUID().toString();
+                context?.let {
+
+                    ImageSaver(context).setFileName(filename).setDirectoryName("images")
+                        .save(bytes)
+
+                    val user = User(0, firstName, lastName,Integer.parseInt(avatar.toString()),filename)
+                    mUserViewModel.addUser(user)
+
+                }
             }
 
 

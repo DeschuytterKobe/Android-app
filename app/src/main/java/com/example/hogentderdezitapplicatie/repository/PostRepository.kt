@@ -8,15 +8,15 @@ import com.example.hogentderdezitapplicatie.model.Post
 class PostRepository(private val postDao : PostDao, userId: Int) {
 
 
-    val readAllPosts : LiveData<List<Post>> = postDao.readAllPosts()
-    val readPostsFromUser :  LiveData<List<Post>> = postDao.readAllPostsFromUser(userId)
+//    val readAllPosts : LiveData<List<Post>> = postDao.readAllPosts()
+//    val readPostsFromUser :  LiveData<List<Post>> = postDao.readAllPostsFromUser(userId)
 
     suspend fun addPost(post: Post){
         postDao.addPost(post)
     }
 
-    suspend fun readAllPostsFromUser(userId : Int){
-        postDao.readAllPostsFromUser(userId)
+     fun readAllPostsFromUser(userId : Int):LiveData<List<Post>>{
+        return postDao.readAllPostsFromUser(userId)
     }
      fun readPostWithId(postId: Int?): LiveData<Post>{
        return postDao.readPostWithId(postId)
@@ -28,5 +28,8 @@ class PostRepository(private val postDao : PostDao, userId: Int) {
     }
     suspend fun deletePost(post: Post){
         postDao.deletePost(post)
+    }
+     fun readAllPosts():LiveData<List<Post>>{
+        return postDao.readAllPosts()
     }
 }

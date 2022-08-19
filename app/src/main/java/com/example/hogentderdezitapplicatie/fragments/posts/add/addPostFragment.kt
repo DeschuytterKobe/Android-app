@@ -91,11 +91,14 @@ class addPostFragment : Fragment() {
         val link = add_postLink.text.toString()
 //        val image = add_image_to_post
         Log.d("tonen van link",link)
+        //shcrijf deze bytes weg op de gsm naar een file
+        //onthou de url
         val bytes= (imageView.drawable as BitmapDrawable).bitmap
 
         if(inputCheck(title, description)){
             // Create User Object
             lifecycleScope.launch{
+                //vervang bytes door de url
                 val post = Post(0 , userId!!,title, description,link,Date(),0,bytes,false,false )
                 mPostViewModel.addPost(post)
             }

@@ -44,17 +44,17 @@ class ProfileDetailActivity : AppCompatActivity() {
         startActivityForResult(intent, IMAGE_REQUEST_CODE)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK)
-            imageView.setImageURI(data?.data)
-    }
-
-
-
-    override fun onSupportNavigateUp(): Boolean {
-    val navController = findNavController(R.id.myNavHostFragment)
-    return navController.navigateUp() || super.onSupportNavigateUp()
-}
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if(requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK)
+//            imageView.setImageURI(data?.data)
+//    }
+//
+//
+//
+//    override fun onSupportNavigateUp(): Boolean {
+//    val navController = findNavController(R.id.myNavHostFragment)
+//    return navController.navigateUp() || super.onSupportNavigateUp()
+//}
 
 }
