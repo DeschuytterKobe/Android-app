@@ -78,7 +78,7 @@ class PostOpenFragment : Fragment() {
         val recyclerView = view.reactionRecyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.addItemDecoration(spacingItemsDecorator)
+//        recyclerView.addItemDecoration(spacingItemsDecorator)
 
         if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){
             updatePost(false)
@@ -111,7 +111,7 @@ class PostOpenFragment : Fragment() {
                 Log.d("test", url)
                 val urlIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse( url)
+                    Uri.parse(textViewee +url)
                 )
                 startActivity(urlIntent)
                 Toast.makeText(context, "link clicked", Toast.LENGTH_SHORT).show()

@@ -27,6 +27,7 @@ import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
 import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
+import kotlinx.android.synthetic.main.custom_row.view.*
 import kotlinx.android.synthetic.main.fragment_add_post.*
 import kotlinx.android.synthetic.main.fragment_add_post.view.*
 import kotlinx.coroutines.launch
@@ -86,7 +87,7 @@ class addPostFragment : Fragment() {
             bundle.putInt("userId", userId)
         }
         Log.d("main",userId.toString())
-        val title = add_postTitle.text.toString()
+//        val title = add_postTitle.text.toString()
         val description = add_postDescription.text.toString()
         val link = add_postLink.text.toString()
 //        val image = add_image_to_post
@@ -95,11 +96,11 @@ class addPostFragment : Fragment() {
         //onthou de url
         val bytes= (imageView.drawable as BitmapDrawable).bitmap
 
-        if(inputCheck(title, description)){
+        if(inputCheck("title", description)){
             // Create User Object
             lifecycleScope.launch{
                 //vervang bytes door de url
-                val post = Post(0 , userId!!,title, description,link,Date(),0,bytes,false,false )
+                val post = Post(0 , userId!!,"title", description,link,Date(),0,bytes,false,false )
                 mPostViewModel.addPost(post)
             }
 

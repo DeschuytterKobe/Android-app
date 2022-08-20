@@ -7,7 +7,7 @@ import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.model.User
 
-@Database(entities = [Post::class, User::class,Reaction::class], version=2,exportSchema = false )
+@Database(entities = [Post::class, User::class,Reaction::class], version=3,exportSchema = false )
 @TypeConverters(Converters::class)
 abstract class MainDatabase : RoomDatabase() {
 

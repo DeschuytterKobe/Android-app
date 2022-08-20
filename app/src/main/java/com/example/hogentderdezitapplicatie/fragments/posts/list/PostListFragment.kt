@@ -54,7 +54,7 @@ class PostListFragment : Fragment() {
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.addItemDecoration(spacingItemsDecorator)
+//        recyclerView.addItemDecoration(spacingItemsDecorator)
 
         Log.e("DBG","in postlist fragementbase before creation postvm");
 

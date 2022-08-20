@@ -120,7 +120,7 @@ class PostListAdapter(userViewModel: UserViewModel) :
 
 
 
-                    val sdf = SimpleDateFormat("dd/M/yyyy")
+                    val sdf = SimpleDateFormat("dd/M/yyyy : HH:mm")
                     val currentDate = sdf.format(currentItem.postDate)
                     //holder.itemView.postTitle_txt.text = currentItem.title
                     holder.itemView.postDescription_txt.text = currentItem.description

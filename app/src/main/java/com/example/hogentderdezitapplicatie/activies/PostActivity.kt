@@ -64,15 +64,15 @@ class PostActivity : AppCompatActivity() {
             adapter.setData(it)
         })
 
-        lifecycleScope.launch{
-            val post = Post(0,1,"testTitel","testDescription","www.google.be", Date(),1,getBitmap(),false,false)
-            postViewModel.addPost(post)
-            val post2 = Post(0,2,"tweede","tewwedededed","www.google.be", Date(),1,getBitmap(),false,false)
-            postViewModel.addPost(post2)
-        }
-        postViewModel.readAllPosts().observe(this,{
-            postAdapter.setData(it)
-        })
+//        lifecycleScope.launch{
+//            val post = Post(0,1,"testTitel","testDescription","www.google.be", Date(),1,getBitmap(),false,false)
+//            postViewModel.addPost(post)
+//            val post2 = Post(0,2,"tweede","tewwedededed","www.google.be", Date(),1,getBitmap(),false,false)
+//            postViewModel.addPost(post2)
+//        }
+//        postViewModel.readAllPosts().observe(this,{
+//            postAdapter.setData(it)
+//        })
     }
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.myNavHostFragment)

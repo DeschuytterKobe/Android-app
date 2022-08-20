@@ -9,8 +9,8 @@
         android:title="users" />
     <item
         android:id="@+id/profileDetailFragment"
-        android:title="about" />
+        android:title="Profile" />
     <item
         android:id="@+id/overviewJokeFragment"
-        android:title="overviewJokeFragment" />
+        android:title="Jokes" />
 </menu>

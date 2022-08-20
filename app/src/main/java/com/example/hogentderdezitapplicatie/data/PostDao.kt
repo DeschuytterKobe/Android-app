@@ -11,7 +11,7 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addPost(post: Post)
 
-    @Query("SELECT * FROM post_table ORDER BY id ASC")
+    @Query("SELECT * FROM post_table ORDER BY postDate DESC")
     fun readAllPosts(): LiveData<List<Post>>
 
     @Query("SELECT * FROM post_table  WHERE Id = :postId")

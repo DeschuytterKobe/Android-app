@@ -66,12 +66,12 @@ class ReactionListAdapter(reactionViewModel: ReactionViewModel, context : Contex
             deleteReaction(currentItem)
         }
 //        holder.itemView.postId_txt.text = currentItem.id.toString()
-        holder.itemView.setBackgroundColor(Color.rgb(214, 187, 76))
+        holder.itemView.idktesting.setBackgroundColor(Color.rgb(214, 187, 76))
         val sdf = SimpleDateFormat("dd/M/yyyy")
         val reactionPostDate = sdf.format(currentItem.reactionDate)
 
         if(currentItem.userId==3){
-            holder.itemView.setBackgroundColor(Color.rgb(76, 103, 214))
+            holder.itemView.idktesting.setBackgroundColor(Color.rgb(76, 103, 214))
 
         }
         holder.itemView.reaction_content.setText(currentItem.content)

@@ -88,6 +88,8 @@ class LoginFragment : AppCompatActivity() {
 
                 override fun onSuccess(credentials: Credentials) {
                     cachedCredentials = credentials
+                    val isLoggedIn = cachedCredentials != null
+                    binding.buttonLogout.isEnabled = isLoggedIn
                     Log.d("",cachedCredentials.toString())
                     showSnackBar(getString(R.string.login_success_message, credentials.accessToken))
 
