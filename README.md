@@ -1,6 +1,3 @@
-# Android-app
-android app
-
 
 Android app gemaakt voor Hogent 3derde zit
 
