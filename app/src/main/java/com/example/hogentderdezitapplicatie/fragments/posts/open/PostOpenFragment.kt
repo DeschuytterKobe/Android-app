@@ -69,6 +69,9 @@ class PostOpenFragment : Fragment() {
             updatePost(false)
         }
 
+        if(args.openCurrentPost.liked==1){
+            view.open_post_like.setText("Dislike")
+        }
 
 
         rReactionViewModel.getReactionsFromPost(args.openCurrentPost.id)
@@ -133,7 +136,21 @@ class PostOpenFragment : Fragment() {
 
 
     private fun likePost() {
-
+if(args.openCurrentPost.liked==1){
+    lifecycleScope.launch {
+        val updatesPost = Post(
+            args.openCurrentPost.id, args.openCurrentPost.userId,
+            args.openCurrentPost.title,
+            args.openCurrentPost.description,
+            args.openCurrentPost.link, Date(),
+            0,
+            args.openCurrentPost.picture,
+            args.openCurrentPost.read,
+            args.openCurrentPost.answered
+        )
+        mPostViewModel.updatePost(updatesPost)
+    }
+}else{
         lifecycleScope.launch {
             val updatesPost = Post(
                 args.openCurrentPost.id, args.openCurrentPost.userId,
@@ -147,7 +164,7 @@ class PostOpenFragment : Fragment() {
             )
             mPostViewModel.updatePost(updatesPost)
         }
-
+}
 
         findNavController().navigate(R.id.action_postOpenFragment_to_postListFragment2)
 

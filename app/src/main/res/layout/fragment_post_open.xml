@@ -56,8 +56,9 @@
         tools:src="@tools:sample/avatars" />
 
     <Button
+
         android:id="@+id/open_post_like"
-        android:layout_width="76dp"
+        android:layout_width="86dp"
         android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:text="@string/like"
