@@ -30,9 +30,13 @@ import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import com.klinker.android.link_builder.Link
 import com.klinker.android.link_builder.applyLinks
+import kotlinx.android.synthetic.main.custom_row_post.view.*
 import kotlinx.android.synthetic.main.fragment_post_open.*
 import kotlinx.android.synthetic.main.fragment_post_open.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 
@@ -80,6 +84,12 @@ class PostOpenFragment : Fragment() {
                 adapter.setData(reaction)
             })
 
+        GlobalScope.launch {
+            val user = uUserViewModel.getUserByIdForList(args.openCurrentPost.userId)
+            withContext(Dispatchers.Main) {
+                view.openPostUser.setText(user.firstName + " "+ user.lastName)
+            }
+        }
 
         if (SecureFileHandle(context, AuthTokenSecureFile()).file.userId != args.openCurrentPost.userId) {
             view.open_post_like.isVisible = false

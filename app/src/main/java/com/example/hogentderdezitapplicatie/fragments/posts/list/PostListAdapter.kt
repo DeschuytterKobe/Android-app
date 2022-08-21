@@ -56,7 +56,7 @@ class PostListAdapter(userViewModel: UserViewModel) :
         GlobalScope.launch {
             val user = uUserViewModel.getUserByIdForList(currentItem.userId)
             withContext(Dispatchers.Main) {
-                holder.itemView.postlist_user_firstname.text = user.firstName
+                holder.itemView.postlist_user_firstname.text = user.firstName + " "+ user.lastName
             }
         }
         val sdf = SimpleDateFormat("dd/M/yyyy : HH:mm")
