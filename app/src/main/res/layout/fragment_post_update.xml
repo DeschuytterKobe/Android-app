@@ -11,20 +11,21 @@
         android:id="@+id/update_postDescription"
         android:layout_width="202dp"
         android:layout_height="155dp"
+        android:layout_marginTop="44dp"
         android:text="postDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/update_postLink"
-        android:layout_width="190dp"
+        android:layout_width="202dp"
         android:layout_height="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="postLink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.877"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update_postDescription" />
 
@@ -32,24 +33,34 @@
         android:id="@+id/updatePost_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="68dp"
         android:text="update"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.67"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update_postLink" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_picture_button" />
 
     <ImageView
         android:id="@+id/update_post_image"
         android:layout_width="78dp"
         android:layout_height="84dp"
-        app:layout_constraintBottom_toTopOf="@+id/updatePost_btn"
-        app:layout_constraintEnd_toStartOf="@+id/update_postLink"
-        app:layout_constraintHorizontal_bias="0.275"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update_postDescription"
-        app:layout_constraintVertical_bias="0.45"
+        app:layout_constraintTop_toBottomOf="@+id/update_postLink"
         tools:src="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/edit_picture_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="28dp"
+        android:text="edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.007"
+        app:layout_constraintStart_toEndOf="@+id/update_post_image"
+        app:layout_constraintTop_toBottomOf="@+id/update_postLink" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
