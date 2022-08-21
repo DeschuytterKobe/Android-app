@@ -43,26 +43,35 @@ class LoginFragment : AppCompatActivity() {
     private lateinit var account: Auth0
     private var cachedCredentials: Credentials? = null
     private var cachedUserProfile: UserProfile? = null
-
+    private var loggedin : Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("in oncreate","3")
         super.onCreate(savedInstanceState)
 
-        account = Auth0(
-            getString(R.string.com_auth0_client_id),
-            getString(R.string.com_auth0_domain)
-        )
 
-        binding = FragmentLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        binding.buttonLogin.setOnClickListener { login(1) }
-        binding.buttonLogin1.setOnClickListener { login(2) }
-        binding.buttonLoginAdmin.setOnClickListener { login(3) }
-        binding.buttonLogout.setOnClickListener { logout() }
-        binding.buttonGet.setOnClickListener { getUserMetadata() }
-        binding.buttonSet.setOnClickListener { setUserMetadata() }
+
+        if(loggedin) logout()
+        else{
+            account = Auth0(
+                getString(R.string.com_auth0_client_id),
+                getString(R.string.com_auth0_domain)
+            )
+
+            binding = FragmentLoginBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+            binding.buttonLogout.isEnabled = true
+            binding.buttonLogin.setOnClickListener { login(1) }
+            binding.buttonLogin1.setOnClickListener { login(2) }
+            binding.buttonLoginAdmin.setOnClickListener { login(3) }
+            binding.buttonLogout.setOnClickListener { logout() }
+            binding.buttonGet.setOnClickListener { getUserMetadata() }
+            binding.buttonSet.setOnClickListener { setUserMetadata() }
+        }
+
+
+
     }
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 //        super.onCreateOptionsMenu(menu)
@@ -89,6 +98,7 @@ class LoginFragment : AppCompatActivity() {
                 override fun onSuccess(credentials: Credentials) {
                     cachedCredentials = credentials
                     val isLoggedIn = cachedCredentials != null
+                    loggedin = true
                     binding.buttonLogout.isEnabled = isLoggedIn
                     Log.d("",cachedCredentials.toString())
                     showSnackBar(getString(R.string.login_success_message, credentials.accessToken))

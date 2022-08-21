@@ -13,4 +13,7 @@
     <item
         android:id="@+id/overviewJokeFragment"
         android:title="Jokes" />
+    <item
+        android:id="@+id/loginFragment"
+        android:title="logout" />
 </menu>

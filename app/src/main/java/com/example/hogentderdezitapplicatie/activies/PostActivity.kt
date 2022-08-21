@@ -88,4 +88,11 @@ class PostActivity : AppCompatActivity() {
         val result = (loading.execute(request) as SuccessResult).drawable
         return (result as BitmapDrawable).bitmap
     }
+
+    @Override
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.clear() // We don't want a TransactionTooLargeException, so we handle things via the SavedInstanceFragment
+    }
 }

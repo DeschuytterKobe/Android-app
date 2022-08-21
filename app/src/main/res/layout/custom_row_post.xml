@@ -40,12 +40,14 @@
                 android:id="@+id/postlist_user_firstname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="144dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="216dp"
                 android:layout_marginBottom="4dp"
                 android:text="TextView"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/postDate_txt"
-                app:layout_constraintEnd_toStartOf="@+id/postLikeButton" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/postLikeButton"
@@ -62,18 +64,19 @@
                 android:id="@+id/postlist_seen_image"
                 android:layout_width="25dp"
                 android:layout_height="20dp"
+                android:layout_marginTop="52dp"
                 android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/postLikeButton"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_view" />
 
             <ImageView
                 android:id="@+id/postlist_answered_image"
                 android:layout_width="25dp"
                 android:layout_height="20dp"
-                android:layout_marginEnd="1dp"
+                android:layout_marginTop="52dp"
                 app:layout_constraintEnd_toStartOf="@+id/postlist_seen_image"
-                app:layout_constraintTop_toBottomOf="@+id/postLikeButton"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_dialog_email" />
 
             <ImageView
@@ -98,12 +101,14 @@
                 android:layout_width="130dp"
                 android:layout_height="21dp"
 
-                android:layout_marginEnd="73dp"
-                android:layout_marginBottom="36dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="144dp"
+                android:layout_marginBottom="40dp"
                 android:text="Date"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/postDescription_txt"
-                app:layout_constraintEnd_toStartOf="@+id/postLikeButton" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postlist_user_firstname" />
 
             <TextView
                 android:id="@+id/postDescription_txt"

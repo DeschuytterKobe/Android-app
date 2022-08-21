@@ -17,6 +17,9 @@ interface PostDao {
     @Query("SELECT * FROM post_table  WHERE Id = :postId")
     fun readPostWithId(postId: Int?): LiveData<Post>
 
+    @Query("SELECT * FROM post_table  WHERE Id = :postId")
+    fun readPostWithIdForTest(postId: Int): Post
+
     @Query("SELECT * FROM post_table WHERE userId = :userId ORDER BY postDate DESC ")
     fun readAllPostsFromUser(userId : Int): LiveData<List<Post>>
 
@@ -28,4 +31,7 @@ interface PostDao {
 
     @Delete
     fun deletePost(post: Post)
+
+    @Query("SELECT COUNT(id) FROM post_table")
+    fun getCount():Int
 }

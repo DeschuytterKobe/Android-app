@@ -13,10 +13,12 @@
         android:theme="@style/Theme.Hogentderdezitapplicatie">
         <activity
             android:name=".fragments.profile.ProfileDetailActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".activies.PostActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".fragments.users.login.LoginFragment"
             android:exported="true"

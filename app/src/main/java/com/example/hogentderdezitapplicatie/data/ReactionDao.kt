@@ -14,8 +14,12 @@ interface ReactionDao {
         @Query("SELECT * FROM reaction_table ORDER BY id ASC")
         fun readAllReactions(): LiveData<List<Reaction>>
 
-        @Query("SELECT * FROM reaction_table WHERE Postid = :key ORDER BY reactionDate DESC")
+        @Query("SELECT * FROM reaction_table WHERE Postid = :key ORDER BY reactionDate ASC")
         fun getReactionsFromPost(key : Int): LiveData<List<Reaction>>
+
+
+        @Query("SELECT * FROM reaction_table WHERE id = :key ")
+        fun getReactionWithId(key : Int): LiveData<Reaction>
 
         @Update
         fun updateReaction(reaction: Reaction)
@@ -23,4 +27,6 @@ interface ReactionDao {
         @Delete
         fun deleteReaction(reaction: Reaction)
 
+        @Query("SELECT COUNT(id) FROM reaction_table")
+        fun getCount():Int
 }

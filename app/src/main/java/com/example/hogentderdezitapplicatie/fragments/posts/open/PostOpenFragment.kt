@@ -3,17 +3,17 @@ package com.example.hogentderdezitapplicatie.fragments.posts.open
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
+
 import android.net.Uri
 import android.os.Bundle
 
-import android.text.Editable
+
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
+
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -24,29 +24,21 @@ import coil.load
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
 import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
-import com.example.hogentderdezitapplicatie.fragments.posts.list.PostListAdapter
-import com.example.hogentderdezitapplicatie.fragments.posts.update.PostUpdateFragmentArgs
+
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.Reaction
 import com.example.hogentderdezitapplicatie.model.User
 import com.example.hogentderdezitapplicatie.utils.SpacingItemsDecorator
 import com.example.hogentderdezitapplicatie.viewmodel.PostOpenViewModel
-import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
+
 import com.example.hogentderdezitapplicatie.viewmodel.ReactionViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import com.klinker.android.link_builder.Link
 import com.klinker.android.link_builder.applyLinks
-import kotlinx.android.synthetic.main.custom_row.*
-import kotlinx.android.synthetic.main.custom_row.view.*
-import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_add.view.*
-import kotlinx.android.synthetic.main.fragment_post_list.view.*
+
 import kotlinx.android.synthetic.main.fragment_post_open.*
 import kotlinx.android.synthetic.main.fragment_post_open.view.*
-import kotlinx.android.synthetic.main.fragment_post_update.*
-import kotlinx.android.synthetic.main.fragment_post_update.view.*
-import kotlinx.android.synthetic.main.fragment_post_update.view.update_postLink
-import kotlinx.android.synthetic.main.fragment_update.view.*
+
 import kotlinx.coroutines.launch
 import java.util.*
 
