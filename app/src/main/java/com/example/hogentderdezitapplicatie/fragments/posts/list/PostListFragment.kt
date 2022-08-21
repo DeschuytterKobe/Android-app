@@ -2,9 +2,7 @@ package com.example.hogentderdezitapplicatie.fragments.posts.list
 
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.ERROR
 import android.view.*
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -26,7 +24,7 @@ class PostListFragment : Fragment() {
     private lateinit var mPostViewModel: PostViewModel
     private lateinit var uUserViewModel: UserViewModel
     private lateinit var spacingItemsDecorator: SpacingItemsDecorator
-    private var liked : Boolean = false
+    private var liked: Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,37 +34,36 @@ class PostListFragment : Fragment() {
         try {
 
 
-        // Inflate the layout for this fragment
-        var userId = SecureFileHandle(context, AuthTokenSecureFile()).file.userId
+            // Inflate the layout for this fragment
+            var userId = SecureFileHandle(context, AuthTokenSecureFile()).file.userId
 
 
-        val view = inflater.inflate(R.layout.fragment_post_list, container, false)
+            val view = inflater.inflate(R.layout.fragment_post_list, container, false)
 
-        Log.e("DBG","in postlist fragementbase before creation userviewmodel");
-        uUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        Log.e("DBG","in postlist fragementbase after creation userviewmodel");
+            Log.e("DBG", "in postlist fragementbase before creation userviewmodel");
+            uUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+            Log.e("DBG", "in postlist fragementbase after creation userviewmodel");
 
 
+            val adapter = PostListAdapter(uUserViewModel)
+            val recyclerView = view.postRecyclerview
+            spacingItemsDecorator = SpacingItemsDecorator(10)
 
-        val adapter = PostListAdapter(uUserViewModel)
-        val recyclerView = view.postRecyclerview
-        spacingItemsDecorator = SpacingItemsDecorator(10)
-
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
 //        recyclerView.addItemDecoration(spacingItemsDecorator)
 
-        Log.e("DBG","in postlist fragementbase before creation postvm");
+            Log.e("DBG", "in postlist fragementbase before creation postvm");
 
-        mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
-        Log.e("DBG","in postlist fragementbase after creation postvm");
+            mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
+            Log.e("DBG", "in postlist fragementbase after creation postvm");
 
-    if(userId ==3){
-        view.showLikedPostsButton.isVisible=false
-    }
+            if (userId == 3) {
+                view.showLikedPostsButton.isVisible = false
+            }
 
             view.showLikedPostsButton.setOnClickListener {
-                if(liked){
+                if (liked) {
                     if (userId == 3) {
 
                         mPostViewModel.readAllPosts().observe(viewLifecycleOwner, Observer { post ->
@@ -79,9 +76,9 @@ class PostListFragment : Fragment() {
                                 adapter.setData(post)
                             })
                     }
-                    liked=false
+                    liked = false
                     view.showLikedPostsButton.setText("liked")
-                }else{
+                } else {
                     mPostViewModel.readAllPostsFromUserAndFavorite(userId)
                         .observe(viewLifecycleOwner, Observer { post ->
                             adapter.setData(post)
@@ -91,44 +88,46 @@ class PostListFragment : Fragment() {
                 }
 
 
-
             }
 
 
-                if (userId == 3) {
+            if (userId == 3) {
 
-                    mPostViewModel.readAllPosts().observe(viewLifecycleOwner, Observer { post ->
-                        adapter.setData(post)
-                    })
-                } else {
-
-                    mPostViewModel.readAllPostsFromUser(userId)
-                        .observe(viewLifecycleOwner, Observer { post ->
-                            adapter.setData(post)
-                        })
-                }
-
-
-        view.floatingActionButtonForPosts.setOnClickListener {
-
-
-            var userId2 = arguments?.getInt("userId")
-
-            var bundle = Bundle()
-            if (userId2 == 0 || userId2 == null) {
-
-                bundle.putInt("userId", userId)
+                mPostViewModel.readAllPosts().observe(viewLifecycleOwner, Observer { post ->
+                    adapter.setData(post)
+                })
             } else {
 
-                if (userId2 != null) {
-                    bundle.putInt("userId", userId2)
-                }
+                mPostViewModel.readAllPostsFromUser(userId)
+                    .observe(viewLifecycleOwner, Observer { post ->
+                        adapter.setData(post)
+                    })
             }
-            findNavController().navigate(R.id.action_postListFragment2_to_addPostFragment, bundle)
-        }
-        setHasOptionsMenu(true)
-        return view
-        }catch (e: Exception){
+
+
+            view.floatingActionButtonForPosts.setOnClickListener {
+
+
+                var userId2 = arguments?.getInt("userId")
+
+                var bundle = Bundle()
+                if (userId2 == 0 || userId2 == null) {
+
+                    bundle.putInt("userId", userId)
+                } else {
+
+                    if (userId2 != null) {
+                        bundle.putInt("userId", userId2)
+                    }
+                }
+                findNavController().navigate(
+                    R.id.action_postListFragment2_to_addPostFragment,
+                    bundle
+                )
+            }
+            setHasOptionsMenu(true)
+            return view
+        } catch (e: Exception) {
             Log.e("hello", e.toString())
             throw e;
         }

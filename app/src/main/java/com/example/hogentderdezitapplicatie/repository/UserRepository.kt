@@ -5,31 +5,34 @@ import com.example.hogentderdezitapplicatie.data.UserDao
 import com.example.hogentderdezitapplicatie.model.User
 import kotlinx.coroutines.flow.Flow
 
-class UserRepository(private val userDao : UserDao) {
-    val readAllData : LiveData<List<User>> = userDao.readAllData()
+class UserRepository(private val userDao: UserDao) {
+    val readAllData: LiveData<List<User>> = userDao.readAllData()
 
-    suspend fun addUser(user: User){
+    suspend fun addUser(user: User) {
         userDao.addUser(user)
     }
 
-    suspend fun updateUser(user:User){
+    suspend fun updateUser(user: User) {
         userDao.updateUser(user)
     }
 
-    suspend fun deleteUser(user: User){
+    suspend fun deleteUser(user: User) {
         userDao.deleteUser(user)
     }
 
-    suspend fun deleteAllUsers(){
+    suspend fun deleteAllUsers() {
         userDao.deleteAllUsers()
     }
+
     fun searchDatabase(searchQuery: String): Flow<List<User>> {
         return userDao.searchDatabase(searchQuery)
     }
-    fun getUserWithId(userId: Int):LiveData<User> {
+
+    fun getUserWithId(userId: Int): LiveData<User> {
         return userDao.getUser(userId)
     }
-     fun getUserByIdForList(userId: Int): User{
+
+    fun getUserByIdForList(userId: Int): User {
         return userDao.getUserByIdForList(userId)
     }
 }

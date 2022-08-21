@@ -15,15 +15,18 @@ import kotlinx.android.synthetic.main.custom_row.view.*
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     private var userList = emptyList<User>()
-    private lateinit var context : Context;
-    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    private lateinit var context: Context;
+
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         context = parent.context;
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.custom_row,parent,false))
+        return MyViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.custom_row, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -39,17 +42,18 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.imageViewProfilePic.load(bitmap)
 //        holder.itemView.avatar_txt.text= currentItem.avatar.toString()
 
-        holder.itemView.rowLayout.setOnClickListener{
+        holder.itemView.rowLayout.setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }
     }
-    fun setData(user: List<User>){
+
+    fun setData(user: List<User>) {
         this.userList = user
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-       return userList.size
+        return userList.size
     }
 }

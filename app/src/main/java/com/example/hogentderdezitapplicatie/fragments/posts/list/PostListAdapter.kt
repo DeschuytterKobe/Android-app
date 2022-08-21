@@ -2,43 +2,24 @@ package com.example.hogentderdezitapplicatie.fragments.posts.list
 
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
-
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-
-
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.request.SuccessResult
 import com.example.hogentderdezitapplicatie.R
-
+import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
+import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.custom_row_post.view.*
-import java.lang.Exception
-
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.*
-
-
-import android.graphics.BitmapFactory
-import android.widget.ImageView
-import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
-import java.io.File
-import java.io.FileInputStream
-import com.example.hogentderdezitapplicatie.domein.ImageSaver
-import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
-import com.example.hogentderdezitapplicatie.model.User
-import kotlinx.coroutines.*
-import okhttp3.internal.wait
 
 
 class PostListAdapter(userViewModel: UserViewModel) :
@@ -57,15 +38,13 @@ class PostListAdapter(userViewModel: UserViewModel) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPostViewHolder {
 
-      context = parent.context;
+        context = parent.context;
         return MyPostViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.custom_row_post, parent, false)
         )
 
 
     }
-
-
 
 
     override fun onBindViewHolder(holder: MyPostViewHolder, position: Int) {
@@ -98,7 +77,7 @@ class PostListAdapter(userViewModel: UserViewModel) :
 
         GlobalScope.launch {
             val user = uUserViewModel.getUserByIdForList(currentItem.userId)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 holder.itemView.postlist_user_firstname.text = user.firstName
             }
         }
@@ -119,32 +98,30 @@ class PostListAdapter(userViewModel: UserViewModel) :
 //            }.start()
 
 
-
-                    val sdf = SimpleDateFormat("dd/M/yyyy : HH:mm")
-                    val currentDate = sdf.format(currentItem.postDate)
-                    //holder.itemView.postTitle_txt.text = currentItem.title
-                    holder.itemView.postDescription_txt.text = currentItem.description
-                    holder.itemView.postDate_txt.text = currentDate
-        if(SecureFileHandle(context,  AuthTokenSecureFile()).file.userId==3){
-            holder.itemView.postLikeButton.isVisible=false
+        val sdf = SimpleDateFormat("dd/M/yyyy : HH:mm")
+        val currentDate = sdf.format(currentItem.postDate)
+        //holder.itemView.postTitle_txt.text = currentItem.title
+        holder.itemView.postDescription_txt.text = currentItem.description
+        holder.itemView.postDate_txt.text = currentDate
+        if (SecureFileHandle(context, AuthTokenSecureFile()).file.userId == 3) {
+            holder.itemView.postLikeButton.isVisible = false
             if (currentItem.read) {
                 holder.itemView.postlist_seen_image.isVisible = true
             } else holder.itemView.postlist_seen_image.isVisible = false
             if (currentItem.answered) {
                 holder.itemView.postlist_answered_image.isVisible = true
             } else holder.itemView.postlist_answered_image.isVisible = false
-        }else{
-                    if (currentItem.liked == 1) {
+        } else {
+            if (currentItem.liked == 1) {
 
-                        holder.itemView.postLikeButton.isVisible = true
-                    } else holder.itemView.postLikeButton.isVisible = false
-                    if (currentItem.read) {
-                        holder.itemView.postlist_seen_image.isVisible = true
-                    } else holder.itemView.postlist_seen_image.isVisible = false
-                    if (currentItem.answered) {
-                        holder.itemView.postlist_answered_image.isVisible = true
-                    } else holder.itemView.postlist_answered_image.isVisible = false
-
+                holder.itemView.postLikeButton.isVisible = true
+            } else holder.itemView.postLikeButton.isVisible = false
+            if (currentItem.read) {
+                holder.itemView.postlist_seen_image.isVisible = true
+            } else holder.itemView.postlist_seen_image.isVisible = false
+            if (currentItem.answered) {
+                holder.itemView.postlist_answered_image.isVisible = true
+            } else holder.itemView.postlist_answered_image.isVisible = false
 
 
 //                } catch (e: Exception) {
@@ -156,9 +133,10 @@ class PostListAdapter(userViewModel: UserViewModel) :
 //        }
 
 
-        //    }
+            //    }
 
-    }}
+        }
+    }
 
 
     fun setData(post: List<Post>) {

@@ -2,7 +2,6 @@ package com.example.hogentderdezitapplicatie.domein;
 
 import android.content.Context;
 
-
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -10,7 +9,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.nio.charset.StandardCharsets;
 
 
@@ -47,10 +45,10 @@ public class SecureFileHandle<T extends SecureFile> {
         }
     }
 
-    public void clearFile(){
+    public void clearFile() {
         File file = new File(context.getFilesDir(), data.getFileName());
         if (!file.exists()) {
-            return ;
+            return;
         }
         file.delete();
     }
@@ -58,12 +56,12 @@ public class SecureFileHandle<T extends SecureFile> {
     private void loadFile() {
         File file = new File(context.getFilesDir(), data.getFileName());
         if (!file.exists()) {
-            return ;
+            return;
         }
         String content = readStringFromFile(file);
 
         //if(content ==null|| content.length() ==0) return;
-        this.data = new Gson().fromJson(content,data.getType());
+        this.data = new Gson().fromJson(content, data.getType());
         if (this.data != null && this.data.isValid()) {
             return;
         }
@@ -71,7 +69,7 @@ public class SecureFileHandle<T extends SecureFile> {
         return;
     }
 
-    public  void reload(){
+    public void reload() {
         this.loadFile();
     }
 

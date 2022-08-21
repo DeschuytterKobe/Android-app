@@ -3,7 +3,6 @@ package com.example.hogentderdezitapplicatie.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.hogentderdezitapplicatie.data.MainDatabase
 import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
@@ -16,55 +15,55 @@ import kotlinx.coroutines.launch
 class PostViewModel(application: Application) : AndroidViewModel(application) {
 
 
-
-        val db = MainDatabase.getDatabase(application.applicationContext)
-
+    val db = MainDatabase.getDatabase(application.applicationContext)
 
 
-        private val pRepository = PostRepository(db.postDao,SecureFileHandle(application.applicationContext,  AuthTokenSecureFile()).file.userId)
+    private val pRepository = PostRepository(
+        db.postDao,
+        SecureFileHandle(application.applicationContext, AuthTokenSecureFile()).file.userId
+    )
 
 //        val posts : LiveData<List<Post>> =  pRepository.readAllPosts
 //        val postsFromUser = pRepository.readPostsFromUser
 
 
-     fun readAllPosts(): LiveData<List<Post>>{
+    fun readAllPosts(): LiveData<List<Post>> {
 
-           return pRepository.readAllPosts()
+        return pRepository.readAllPosts()
 
     }
 
-    fun readAllPostsFromUser(userId : Int):LiveData<List<Post>>{
+    fun readAllPostsFromUser(userId: Int): LiveData<List<Post>> {
 
         return pRepository.readAllPostsFromUser(userId)
     }
 
-    fun addPost(post: Post){
-        viewModelScope.launch(Dispatchers.IO){
+    fun addPost(post: Post) {
+        viewModelScope.launch(Dispatchers.IO) {
             pRepository.addPost(post)
         }
     }
-    fun readAllPostsFromUserAndFavorite(userId: Int):LiveData<List<Post>>{
+
+    fun readAllPostsFromUserAndFavorite(userId: Int): LiveData<List<Post>> {
         return pRepository.readAllPostsFromUserAndFavorite(userId)
     }
 
 
+    fun readPostWithId(postId: Int?): LiveData<Post> {
 
-    fun readPostWithId(postId: Int?): LiveData<Post>{
-
-            return pRepository.readPostWithId(postId)
-
+        return pRepository.readPostWithId(postId)
 
 
     }
 
-    fun updatePost(post: Post){
-        viewModelScope.launch(Dispatchers.IO){
+    fun updatePost(post: Post) {
+        viewModelScope.launch(Dispatchers.IO) {
             pRepository.updatePost(post)
         }
     }
 
-    fun deletePost(post: Post){
-        viewModelScope.launch(Dispatchers.IO){
+    fun deletePost(post: Post) {
+        viewModelScope.launch(Dispatchers.IO) {
             pRepository.deletePost(post)
         }
     }
@@ -72,17 +71,19 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 }
 
 
-public class PostOpenViewModel (application: Application) : AndroidViewModel(application) {
+public class PostOpenViewModel(application: Application) : AndroidViewModel(application) {
 
     val db = MainDatabase.getDatabase(application.applicationContext)
 
 
+    private val pRepository = PostRepository(
+        db.postDao,
+        SecureFileHandle(application.applicationContext, AuthTokenSecureFile()).file.userId
+    )
 
-    private val pRepository = PostRepository(db.postDao,SecureFileHandle(application.applicationContext,  AuthTokenSecureFile()).file.userId)
 
-
-    fun addPost(post: Post){
-        viewModelScope.launch(Dispatchers.IO){
+    fun addPost(post: Post) {
+        viewModelScope.launch(Dispatchers.IO) {
             pRepository.addPost(post)
         }
     }
@@ -94,22 +95,21 @@ public class PostOpenViewModel (application: Application) : AndroidViewModel(app
 //    }
 
 
-    fun readPostWithId(postId: Int?): LiveData<Post>{
+    fun readPostWithId(postId: Int?): LiveData<Post> {
 
         return pRepository.readPostWithId(postId)
 
 
-
     }
 
-    fun updatePost(post: Post){
-        viewModelScope.launch(Dispatchers.IO){
+    fun updatePost(post: Post) {
+        viewModelScope.launch(Dispatchers.IO) {
             pRepository.updatePost(post)
         }
     }
 
-    fun deletePost(post: Post){
-        viewModelScope.launch(Dispatchers.IO){
+    fun deletePost(post: Post) {
+        viewModelScope.launch(Dispatchers.IO) {
             pRepository.deletePost(post)
         }
     }

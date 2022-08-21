@@ -5,9 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.hogentderdezitapplicatie.data.MainDatabase
-import com.example.hogentderdezitapplicatie.repository.UserRepository
 import com.example.hogentderdezitapplicatie.model.User
-import com.example.hogentderdezitapplicatie.repository.PostRepository
+import com.example.hogentderdezitapplicatie.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,7 +14,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
 
     val db = MainDatabase.getDatabase(application.applicationContext)
-
 
 
     private val uRepository = UserRepository(db.userDao)
@@ -27,35 +25,36 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 //    private val repository : UserRepository
 
 
-
-    fun addUser(user: User){
-        viewModelScope.launch(Dispatchers.IO){
+    fun addUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
             uRepository.addUser(user)
         }
     }
-    fun updateUser(user:User){
-        viewModelScope.launch(Dispatchers.IO){
+
+    fun updateUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
             uRepository.updateUser(user)
         }
     }
 
-    fun deleteUser(user:User){
-        viewModelScope.launch(Dispatchers.IO){
+    fun deleteUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
             uRepository.deleteUser(user)
         }
     }
 
-    fun deleteAllUsers(){
-        viewModelScope.launch(Dispatchers.IO){
+    fun deleteAllUsers() {
+        viewModelScope.launch(Dispatchers.IO) {
             uRepository.deleteAllUsers()
         }
     }
 
-    fun getUserById(userId : Int): LiveData<User>{
-            return uRepository.getUserWithId(userId)
+    fun getUserById(userId: Int): LiveData<User> {
+        return uRepository.getUserWithId(userId)
 
     }
-      fun getUserByIdForList(userId : Int): User{
+
+    fun getUserByIdForList(userId: Int): User {
         return uRepository.getUserByIdForList(userId)
 
     }

@@ -8,10 +8,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.example.hogentderdezitapplicatie.data.MainDatabase
 import com.example.hogentderdezitapplicatie.data.PostDao
 import com.example.hogentderdezitapplicatie.model.Post
-
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,7 +26,7 @@ import java.util.*
 @RunWith(AndroidJUnit4::class)
 class jokesApitest {
 
-    private lateinit var postDao : PostDao
+    private lateinit var postDao: PostDao
     private lateinit var db: MainDatabase
 
     @Before
@@ -54,11 +53,12 @@ class jokesApitest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetJoke() = runBlocking {
-        var bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888).copy(Bitmap.Config.ARGB_8888, true)
-        val createPost = Post(1,1,"","","", Date(),1,bitmap,false,false)
+        var bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888)
+            .copy(Bitmap.Config.ARGB_8888, true)
+        val createPost = Post(1, 1, "", "", "", Date(), 1, bitmap, false, false)
         postDao.addPost(createPost)
 
-        val createPost2 = Post(2,1,"","","", Date(),1,bitmap,false,false)
+        val createPost2 = Post(2, 1, "", "", "", Date(), 1, bitmap, false, false)
         postDao.addPost(createPost2)
         val postWithId = postDao.readPostWithIdForTest(1)
         assertEquals(postWithId.id, 1)

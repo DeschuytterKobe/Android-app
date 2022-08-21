@@ -1,19 +1,15 @@
 package com.example.hogentderdezitapplicatie.fragments.users.add
 
-import android.R.attr
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -21,24 +17,18 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.example.hogentderdezitapplicatie.R
+import com.example.hogentderdezitapplicatie.domein.ImageSaver
 import com.example.hogentderdezitapplicatie.model.User
 import com.example.hogentderdezitapplicatie.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 import kotlinx.coroutines.launch
-import android.R.attr.path
-
-import java.io.*
-
-import android.content.ContextWrapper
-import com.example.hogentderdezitapplicatie.domein.ImageSaver
-import java.lang.Exception
 import java.util.*
 
 
 class AddFragment : Fragment() {
 
-    private lateinit var mUserViewModel : UserViewModel
+    private lateinit var mUserViewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,9 +51,9 @@ class AddFragment : Fragment() {
         val lastName = addLastName_et.text.toString()
         val avatar = addAvatar.text
 
-        if(inputCheck(firstName, lastName, avatar)){
+        if (inputCheck(firstName, lastName, avatar)) {
             // Create User Object
-            lifecycleScope.launch{
+            lifecycleScope.launch {
 
                 var bytes = getBitmap();
                 var filename = UUID.randomUUID().toString();
@@ -72,7 +62,8 @@ class AddFragment : Fragment() {
                     ImageSaver(context).setFileName(filename).setDirectoryName("images")
                         .save(bytes)
 
-                    val user = User(0, firstName, lastName,Integer.parseInt(avatar.toString()),filename)
+                    val user =
+                        User(0, firstName, lastName, Integer.parseInt(avatar.toString()), filename)
                     mUserViewModel.addUser(user)
 
                 }
@@ -83,14 +74,16 @@ class AddFragment : Fragment() {
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate Back
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
-        }else{
-            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG)
+                .show()
         }
     }
 
-    private fun inputCheck(firstName: String, lastName: String, avatar: Editable): Boolean{
+    private fun inputCheck(firstName: String, lastName: String, avatar: Editable): Boolean {
         return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && avatar.isEmpty())
     }
+
     private suspend fun getBitmap(): Bitmap {
         val loading = ImageLoader(requireContext())
         val request = ImageRequest.Builder(requireContext())

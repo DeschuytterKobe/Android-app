@@ -4,23 +4,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.example.hogentderdezitapplicatie.R
-
 import com.example.hogentderdezitapplicatie.databinding.FragmentOverviewJokeBinding
 import com.example.hogentderdezitapplicatie.viewmodel.JokeOverviewViewModel
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import kotlinx.android.synthetic.main.fragment_overview_joke.view.*
-import kotlinx.coroutines.launch
-
 
 
 class OverviewJokeFragment : Fragment() {
 
-private lateinit var jokeApiService: JokeApiService
+    private lateinit var jokeApiService: JokeApiService
+
     /**
      * Lazily initialize our [OverviewViewModel].
      */
@@ -32,15 +27,17 @@ private lateinit var jokeApiService: JokeApiService
      * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
      * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentOverviewJokeBinding.inflate(inflater)
-         Log.d("in overviewJokeFragment","yes")
+        Log.d("in overviewJokeFragment", "yes")
 //        val view = inflater.inflate(R.layout.fragment_overview_joke, container, false)
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        Log.d("test ","big zaezaeaze")
-        binding.refreshApiCall.setOnClickListener{
-            Log.d("test ","big test")
+        Log.d("test ", "big zaezaeaze")
+        binding.refreshApiCall.setOnClickListener {
+            Log.d("test ", "big test")
             viewModel.getJokeProperties()
 
 
@@ -65,7 +62,6 @@ private lateinit var jokeApiService: JokeApiService
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
-
 
 
 }

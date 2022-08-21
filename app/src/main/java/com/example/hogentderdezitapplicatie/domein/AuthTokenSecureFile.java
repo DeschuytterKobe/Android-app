@@ -14,7 +14,7 @@ import java.util.Map;
 public class AuthTokenSecureFile implements SecureFile {
 
 
-    private final  String _tokenName ="jwt_tokens_v5.json";
+    private final String _tokenName = "jwt_tokens_v5.json";
 
 
     private Date expiresAt;
@@ -63,9 +63,7 @@ public class AuthTokenSecureFile implements SecureFile {
     private String tokenType;
 
 
-
-
-    public AuthTokenSecureFile(){
+    public AuthTokenSecureFile() {
 
     }
 
@@ -86,12 +84,12 @@ public class AuthTokenSecureFile implements SecureFile {
     }
 
 
-    private final String KEY_EMAIL_ADRESS ="name";
-    private final String KEY_EMAIL_NAME ="nickname";
+    private final String KEY_EMAIL_ADRESS = "name";
+    private final String KEY_EMAIL_NAME = "nickname";
 
-    private  void fillCustomContent(String token){
-        if(token == null || token.isEmpty()){
-            throw   new IllegalArgumentException("id token should be filled in");
+    private void fillCustomContent(String token) {
+        if (token == null || token.isEmpty()) {
+            throw new IllegalArgumentException("id token should be filled in");
         }
 
         String dataBase64 = token.split("\\.")[1];
@@ -100,18 +98,17 @@ public class AuthTokenSecureFile implements SecureFile {
 
 
         Map<String, Object> retMap = new Gson().fromJson(
-                payload, new TypeToken<HashMap<String, Object>>() {}.getType()
+                payload, new TypeToken<HashMap<String, Object>>() {
+                }.getType()
         );
 
         //TODO fix error handeling in try catch en zo
-        String result =retMap.get(KEY_EMAIL_ADRESS).toString();
+        String result = retMap.get(KEY_EMAIL_ADRESS).toString();
         setEmail(result);
         setName(retMap.get(KEY_EMAIL_NAME).toString());
 
 
-
     }
-
 
 
     public void setExpiresAt(Date expiresAt) {
@@ -134,18 +131,18 @@ public class AuthTokenSecureFile implements SecureFile {
     public String getAccesToken() {
         return accesToken;
     }
+
     public Date getExpiresAt() {
         return expiresAt;
     }
+
     public String getIdToken() {
         return idToken;
     }
+
     public String getRefreshToken() {
         return refreshToken;
     }
-
-
-
 
 
     @Override
@@ -153,6 +150,7 @@ public class AuthTokenSecureFile implements SecureFile {
         //check if token is valid
         return true;
     }
+
     @Override
     public String getFileName() {
         return _tokenName;

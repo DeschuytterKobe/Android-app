@@ -5,14 +5,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.hogentderdezitapplicatie.data.MainDatabase
-import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.model.Reaction
-import com.example.hogentderdezitapplicatie.repository.PostRepository
 import com.example.hogentderdezitapplicatie.repository.ReactionRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ReactionViewModel(application: Application) : AndroidViewModel(application){
+class ReactionViewModel(application: Application) : AndroidViewModel(application) {
 
     val db = MainDatabase.getDatabase(application.applicationContext)
 
@@ -21,27 +19,27 @@ class ReactionViewModel(application: Application) : AndroidViewModel(application
     val reaction = rRepository.readAllReactions
 
 
-
-    fun addReaction(reaction: Reaction){
-        viewModelScope.launch(Dispatchers.IO){
+    fun addReaction(reaction: Reaction) {
+        viewModelScope.launch(Dispatchers.IO) {
             rRepository.addReaction(reaction)
         }
     }
 
-    fun updateReaction(reaction: Reaction){
-        viewModelScope.launch(Dispatchers.IO){
+    fun updateReaction(reaction: Reaction) {
+        viewModelScope.launch(Dispatchers.IO) {
             rRepository.updateReaction(reaction)
         }
     }
 
-    fun deleteReaction(reaction: Reaction){
-        viewModelScope.launch(Dispatchers.IO){
+    fun deleteReaction(reaction: Reaction) {
+        viewModelScope.launch(Dispatchers.IO) {
             rRepository.deleteReaction(reaction)
         }
     }
-     fun getReactionsFromPost(postId : Int) : LiveData<List<Reaction>> {
 
-           return rRepository.getReactionsFromPost(postId)
+    fun getReactionsFromPost(postId: Int): LiveData<List<Reaction>> {
+
+        return rRepository.getReactionsFromPost(postId)
 
     }
 

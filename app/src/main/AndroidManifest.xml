@@ -14,11 +14,11 @@
         <activity
             android:name=".fragments.profile.ProfileDetailActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".activies.PostActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".fragments.users.login.LoginFragment"
             android:exported="true"
@@ -34,7 +34,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="https"
+                <data
+                    android:scheme="https"
                     android:host="www.maps.google.com"></data>
             </intent-filter>
         </activity>

@@ -8,15 +8,14 @@ import java.util.*
 
 @Parcelize
 @Entity(tableName = "reaction_table")
-class Reaction (
+class Reaction(
 
     @PrimaryKey(autoGenerate = true)
-    val id:Int,
+    val id: Int,
     val userId: Int,
     val postId: Int,
     val content: String,
-    val reactionDate : Date,
-
+    val reactionDate: Date,
 
 
     ) : Parcelable

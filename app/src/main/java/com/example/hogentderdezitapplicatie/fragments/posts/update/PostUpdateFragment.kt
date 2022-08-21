@@ -4,11 +4,11 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -25,29 +25,29 @@ import java.util.*
 
 class PostUpdateFragment : Fragment() {
 
-//    private val args by navArgs<PostUpdateFragmentArgs>()
-    private lateinit var mPostViewModel : PostViewModel
-    private  var postRead =false
-    private  var postAnswered =false
+    //    private val args by navArgs<PostUpdateFragmentArgs>()
+    private lateinit var mPostViewModel: PostViewModel
+    private var postRead = false
+    private var postAnswered = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var userId = SecureFileHandle(context,  AuthTokenSecureFile()).file.userId
+        var userId = SecureFileHandle(context, AuthTokenSecureFile()).file.userId
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_post_update, container, false)
+        val view = inflater.inflate(R.layout.fragment_post_update, container, false)
 
-        Log.d("1","In de postupdatefragment")
+        Log.d("1", "In de postupdatefragment")
 
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
 
         var postId = arguments?.getInt("postId")
 
-        mPostViewModel.readPostWithId(postId).observe(viewLifecycleOwner ){
+        mPostViewModel.readPostWithId(postId).observe(viewLifecycleOwner) {
             view.update_postTitle.setText(it.title)
-             view.update_postDescription.setText(it.description)
+            view.update_postDescription.setText(it.description)
             view.update_postLink.setText(it.link)
             view.update_post_image.setImageBitmap(it.picture)
             postRead = it.read
@@ -61,33 +61,31 @@ class PostUpdateFragment : Fragment() {
 //            view.update_postLink.setText(queryResult.link)
 
 
-
-
-
-        view.updatePost_btn.setOnClickListener{
+        view.updatePost_btn.setOnClickListener {
             updatePost()
             var bundle = Bundle()
             bundle.putInt("userId", userId)
-            it.findNavController().navigate(R.id.action_postUpdateFragment_to_postListFragment2,bundle)
+            it.findNavController()
+                .navigate(R.id.action_postUpdateFragment_to_postListFragment2, bundle)
         }
 
 
         return view
     }
 
-    private fun updatePost(){
+    private fun updatePost() {
         val title = update_postTitle.text.toString()
         val description = update_postDescription.text.toString()
         val link = update_postLink.text.toString()
         val image = update_post_image
-        val bytes= (image.drawable as BitmapDrawable).bitmap
+        val bytes = (image.drawable as BitmapDrawable).bitmap
 
-        if(inputCheck(title,description)){
-            lifecycleScope.launch{
+        if (inputCheck(title, description)) {
+            lifecycleScope.launch {
                 val updatePost = arguments?.getInt("postId")?.let {
                     Post(
                         it,
-                        SecureFileHandle(context,  AuthTokenSecureFile()).file.userId,
+                        SecureFileHandle(context, AuthTokenSecureFile()).file.userId,
                         title,
                         description,
                         link,
@@ -106,18 +104,16 @@ class PostUpdateFragment : Fragment() {
 
 
 
-            Toast.makeText(requireContext(),"Updated Succesfully!",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Updated Succesfully!", Toast.LENGTH_SHORT).show()
 
 
-
-        }else
-        {
-            Toast.makeText(requireContext(),"fill in everything",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "fill in everything", Toast.LENGTH_SHORT).show()
         }
     }
 
 
-    private fun inputCheck(title: String, description: String): Boolean{
+    private fun inputCheck(title: String, description: String): Boolean {
         return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(description))
     }
 }

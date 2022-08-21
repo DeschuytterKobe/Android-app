@@ -1,7 +1,6 @@
 package com.example.hogentderdezitapplicatie.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.hogentderdezitapplicatie.model.Post
 
@@ -21,10 +20,10 @@ interface PostDao {
     fun readPostWithIdForTest(postId: Int): Post
 
     @Query("SELECT * FROM post_table WHERE userId = :userId ORDER BY postDate DESC ")
-    fun readAllPostsFromUser(userId : Int): LiveData<List<Post>>
+    fun readAllPostsFromUser(userId: Int): LiveData<List<Post>>
 
     @Query("SELECT * FROM post_table WHERE userId = :userId AND liked == 1")
-    fun readAllPostsFromUserAndFavorite(userId : Int): LiveData<List<Post>>
+    fun readAllPostsFromUserAndFavorite(userId: Int): LiveData<List<Post>>
 
     @Update
     fun updatePost(post: Post)
@@ -33,5 +32,5 @@ interface PostDao {
     fun deletePost(post: Post)
 
     @Query("SELECT COUNT(id) FROM post_table")
-    fun getCount():Int
+    fun getCount(): Int
 }

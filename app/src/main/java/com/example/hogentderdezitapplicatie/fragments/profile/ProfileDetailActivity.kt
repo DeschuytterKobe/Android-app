@@ -1,24 +1,20 @@
 package com.example.hogentderdezitapplicatie.fragments.profile
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.appcompat.app.AppCompatActivity
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
 import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 
 class ProfileDetailActivity : AppCompatActivity() {
 
-    private lateinit var button : Button
+    private lateinit var button: Button
     private lateinit var imageView: ImageView
 
-    companion object{
+    companion object {
         val IMAGE_REQUEST_CODE = 100
     }
 
@@ -29,10 +25,10 @@ class ProfileDetailActivity : AppCompatActivity() {
         button = findViewById(R.id.btn_pick_img)
         imageView = findViewById(R.id.img_save)
 
-        button.setOnClickListener{
+        button.setOnClickListener {
             pickImageGallery()
         }
-        val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
+        val securefile = SecureFileHandle(applicationContext, AuthTokenSecureFile())
         securefile.file.userId;
 
 //        setupActionBarWithNavController(findNavController(R.id.myNavHostFragment))

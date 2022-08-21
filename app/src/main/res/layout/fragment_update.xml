@@ -7,12 +7,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.users.update.UpdateFragment">
 
-    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent" android:inputType="textPersonName" android:hint="First Name" android:ems="10" android:layout_marginTop="100dp" android:id="@+id/updateFirstName_et"/>
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="textPersonName"
+        android:hint="First Name"
+        android:ems="10"
+        android:layout_marginTop="100dp"
+        android:id="@+id/updateFirstName_et" />
 
-    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent" android:inputType="textPersonName" android:hint="Last Name" android:ems="10" android:layout_marginTop="16dp" android:id="@+id/updateLastName_et" app:layout_constraintTop_toBottomOf="@+id/updateFirstName_et"/>
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="textPersonName"
+        android:hint="Last Name"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:id="@+id/updateLastName_et"
+        app:layout_constraintTop_toBottomOf="@+id/updateFirstName_et" />
 
-    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent" android:inputType="number"  android:ems="10" android:layout_marginTop="16dp" android:id="@+id/updateAvatar" app:layout_constraintTop_toBottomOf="@+id/updateLastName_et"/>
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:id="@+id/updateAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/updateLastName_et" />
 
-    <Button android:layout_height="wrap_content" android:layout_width="match_parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="24dp" android:id="@+id/update_btn" app:layout_constraintTop_toBottomOf="@+id/updateAvatar" android:text="Update"/>
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:id="@+id/update_btn"
+        app:layout_constraintTop_toBottomOf="@+id/updateAvatar"
+        android:text="Update" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

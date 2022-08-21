@@ -4,16 +4,8 @@ package com.example.hogentderdezitapplicatie.fragments.users.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
-import com.example.hogentderdezitapplicatie.R
 import androidx.appcompat.app.AppCompatActivity
-import com.example.hogentderdezitapplicatie.databinding.FragmentLoginBinding
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.AuthenticationException
@@ -23,37 +15,36 @@ import com.auth0.android.management.UsersAPIClient
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
+import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.activies.PostActivity
+import com.example.hogentderdezitapplicatie.databinding.FragmentLoginBinding
 import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
 import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
 class LoginFragment : AppCompatActivity() {
 
 
-
-
     private lateinit var binding: FragmentLoginBinding
-    private lateinit var mPostViewModel : PostViewModel
+    private lateinit var mPostViewModel: PostViewModel
 
     // Login/logout-related properties
     private lateinit var account: Auth0
     private var cachedCredentials: Credentials? = null
     private var cachedUserProfile: UserProfile? = null
-    private var loggedin : Boolean=false
+    private var loggedin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("in oncreate","3")
+        Log.d("in oncreate", "3")
         super.onCreate(savedInstanceState)
 
 
 
 
-        if(loggedin) logout()
-        else{
+        if (loggedin) logout()
+        else {
             account = Auth0(
                 getString(R.string.com_auth0_client_id),
                 getString(R.string.com_auth0_domain)
@@ -71,9 +62,9 @@ class LoginFragment : AppCompatActivity() {
         }
 
 
-
     }
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+    //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 //        super.onCreateOptionsMenu(menu)
 //        inflater?.inflate(R.menu.overflow_menu,menu)
 //    }
@@ -82,8 +73,8 @@ class LoginFragment : AppCompatActivity() {
 //        return NavigationUI.onNavDestinationSelected(item!!,requireView().findNavController())||
 //                return super.onOptionsItemSelected(item)
 //    }
-    private fun login(userId:Int) {
-        Log.d("in oncreate","3")
+    private fun login(userId: Int) {
+        Log.d("in oncreate", "3")
         WebAuthProvider
             .login(account)
             .withScheme(getString(R.string.com_auth0_scheme))
@@ -100,15 +91,16 @@ class LoginFragment : AppCompatActivity() {
                     val isLoggedIn = cachedCredentials != null
                     loggedin = true
                     binding.buttonLogout.isEnabled = isLoggedIn
-                    Log.d("",cachedCredentials.toString())
+                    Log.d("", cachedCredentials.toString())
                     showSnackBar(getString(R.string.login_success_message, credentials.accessToken))
 
-                    val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
+                    val securefile = SecureFileHandle(applicationContext, AuthTokenSecureFile())
 
                     securefile.file.fill(cachedCredentials, userId);
-                    Log.d("in login with userId",userId.toString())
+                    Log.d("in login with userId", userId.toString())
 
-                    val navigateToPostActivity = Intent(applicationContext,PostActivity::class.java)
+                    val navigateToPostActivity =
+                        Intent(applicationContext, PostActivity::class.java)
                     securefile.saveFile()
 
 
@@ -127,7 +119,7 @@ class LoginFragment : AppCompatActivity() {
 
     private fun logout() {
         //TODO
-        val securefile = SecureFileHandle(applicationContext,  AuthTokenSecureFile())
+        val securefile = SecureFileHandle(applicationContext, AuthTokenSecureFile())
         securefile.clearFile()
 
         WebAuthProvider
@@ -137,8 +129,12 @@ class LoginFragment : AppCompatActivity() {
 
                 override fun onFailure(exception: AuthenticationException) {
                     updateUI()
-                    showSnackBar(getString(R.string.general_failure_with_exception_code,
-                        exception.getCode()))
+                    showSnackBar(
+                        getString(
+                            R.string.general_failure_with_exception_code,
+                            exception.getCode()
+                        )
+                    )
                 }
 
                 override fun onSuccess(payload: Void?) {
@@ -150,6 +146,7 @@ class LoginFragment : AppCompatActivity() {
 
             })
     }
+
     private fun showUserProfile() {
         // Guard against showing the profile when no user is logged in
         if (cachedCredentials == null) {
@@ -162,8 +159,12 @@ class LoginFragment : AppCompatActivity() {
             .start(object : Callback<UserProfile, AuthenticationException> {
 
                 override fun onFailure(exception: AuthenticationException) {
-                    showSnackBar(getString(R.string.general_failure_with_exception_code,
-                        exception.getCode()))
+                    showSnackBar(
+                        getString(
+                            R.string.general_failure_with_exception_code,
+                            exception.getCode()
+                        )
+                    )
                 }
 
                 override fun onSuccess(profile: UserProfile) {
@@ -173,6 +174,7 @@ class LoginFragment : AppCompatActivity() {
 
             })
     }
+
     private fun getUserMetadata() {
         // Guard against getting the metadata when no user is logged in
         if (cachedCredentials == null) {
@@ -186,8 +188,12 @@ class LoginFragment : AppCompatActivity() {
             .start(object : Callback<UserProfile, ManagementException> {
 
                 override fun onFailure(exception: ManagementException) {
-                    showSnackBar(getString(R.string.general_failure_with_exception_code,
-                        exception.getCode()))
+                    showSnackBar(
+                        getString(
+                            R.string.general_failure_with_exception_code,
+                            exception.getCode()
+                        )
+                    )
                 }
 
                 override fun onSuccess(userProfile: UserProfile) {
@@ -215,8 +221,12 @@ class LoginFragment : AppCompatActivity() {
             .start(object : Callback<UserProfile, ManagementException> {
 
                 override fun onFailure(exception: ManagementException) {
-                    showSnackBar(getString(R.string.general_failure_with_exception_code,
-                        exception.getCode()))
+                    showSnackBar(
+                        getString(
+                            R.string.general_failure_with_exception_code,
+                            exception.getCode()
+                        )
+                    )
                 }
 
                 override fun onSuccess(profile: UserProfile) {
@@ -228,6 +238,7 @@ class LoginFragment : AppCompatActivity() {
 
             })
     }
+
     private fun updateUI() {
         val isLoggedIn = cachedCredentials != null
 

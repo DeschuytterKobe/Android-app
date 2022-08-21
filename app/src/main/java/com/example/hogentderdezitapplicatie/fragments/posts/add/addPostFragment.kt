@@ -2,7 +2,6 @@ package com.example.hogentderdezitapplicatie.fragments.posts.add
 
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.TextUtils
@@ -18,16 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.request.SuccessResult
 import com.example.hogentderdezitapplicatie.R
 import com.example.hogentderdezitapplicatie.converters.Converters
-import com.example.hogentderdezitapplicatie.domein.AuthTokenSecureFile
-import com.example.hogentderdezitapplicatie.domein.SecureFileHandle
 import com.example.hogentderdezitapplicatie.model.Post
 import com.example.hogentderdezitapplicatie.viewmodel.PostViewModel
-import kotlinx.android.synthetic.main.custom_row.view.*
 import kotlinx.android.synthetic.main.fragment_add_post.*
 import kotlinx.android.synthetic.main.fragment_add_post.view.*
 import kotlinx.coroutines.launch
@@ -38,11 +31,11 @@ class addPostFragment : Fragment() {
 
     private lateinit var mPostViewModel: PostViewModel
 
-    private lateinit var button : Button
+    private lateinit var button: Button
     private lateinit var imageView: ImageView
     private lateinit var converters: Converters
 
-    companion object{
+    companion object {
         val IMAGE_REQUEST_CODE = 100
     }
 
@@ -58,13 +51,13 @@ class addPostFragment : Fragment() {
 
         imageView = view.findViewById(R.id.add_image_to_post)
 
-        button.setOnClickListener{
+        button.setOnClickListener {
             pickImageGallery()
         }
 
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
-        view.addPost_btn.setOnClickListener{
+        view.addPost_btn.setOnClickListener {
             insertPostDataToDatabase()
         }
 
@@ -86,40 +79,43 @@ class addPostFragment : Fragment() {
         if (userId != null) {
             bundle.putInt("userId", userId)
         }
-        Log.d("main",userId.toString())
+        Log.d("main", userId.toString())
 //        val title = add_postTitle.text.toString()
         val description = add_postDescription.text.toString()
         val link = add_postLink.text.toString()
 //        val image = add_image_to_post
-        Log.d("tonen van link",link)
+        Log.d("tonen van link", link)
         //shcrijf deze bytes weg op de gsm naar een file
         //onthou de url
-        val bytes= (imageView.drawable as BitmapDrawable).bitmap
+        val bytes = (imageView.drawable as BitmapDrawable).bitmap
 
-        if(inputCheck("title", description)){
+        if (inputCheck("title", description)) {
             // Create User Object
-            lifecycleScope.launch{
+            lifecycleScope.launch {
                 //vervang bytes door de url
-                val post = Post(0 , userId!!,"title", description,link,Date(),0,bytes,false,false )
+                val post =
+                    Post(0, userId!!, "title", description, link, Date(), 0, bytes, false, false)
                 mPostViewModel.addPost(post)
             }
 
 
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate Back
-            findNavController().navigate(R.id.action_addPostFragment_to_postListFragment2,bundle)
-        }else{
-            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_addPostFragment_to_postListFragment2, bundle)
+        } else {
+            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG)
+                .show()
         }
     }
 
-    private fun inputCheck(title: String, description: String): Boolean{
+    private fun inputCheck(title: String, description: String): Boolean {
         return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(description))
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == addPostFragment.IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK)
+        if (requestCode == addPostFragment.IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK)
             imageView.setImageURI(data?.data)
     }
 

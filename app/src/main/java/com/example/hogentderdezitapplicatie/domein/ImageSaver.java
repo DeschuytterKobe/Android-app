@@ -60,14 +60,13 @@ public class ImageSaver {
     @NonNull
     private File createFile() {
         File directory;
-        if(external){
+        if (external) {
             directory = getAlbumStorageDir(directoryName);
-        }
-        else {
+        } else {
             directory = context.getDir(directoryName, Context.MODE_PRIVATE);
         }
-        if(!directory.exists() && !directory.mkdirs()){
-            Log.e("ImageSaver","Error creating directory " + directory);
+        if (!directory.exists() && !directory.mkdirs()) {
+            Log.e("ImageSaver", "Error creating directory " + directory);
         }
 
         return new File(directory, fileName);

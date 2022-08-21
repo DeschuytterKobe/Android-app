@@ -12,7 +12,7 @@ import java.util.*
 class Post(
 
     @PrimaryKey(autoGenerate = true)
-    val id:Int,
+    val id: Int,
     val userId: Int,
     val title: String,
     val description: String,
@@ -20,9 +20,8 @@ class Post(
     val postDate: Date?,
     var liked: Int,
     val picture: Bitmap,
-    val read : Boolean,
-    val answered : Boolean,
-
+    val read: Boolean,
+    val answered: Boolean,
 
 
     ) : Parcelable
