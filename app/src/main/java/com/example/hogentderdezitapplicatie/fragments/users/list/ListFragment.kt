@@ -26,13 +26,11 @@ class ListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
-        Log.d("tagggg", "in listgrafme")
         //Reyclerviewiee
         val adapter = ListAdapter()
         val recyclerView = view.recyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        Log.d("2", "2")
 
         // UserViewModel
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
@@ -50,7 +48,6 @@ class ListFragment : Fragment() {
 
         setHasOptionsMenu(true)
         return view
-        Log.d("3", "3")
 
     }
 

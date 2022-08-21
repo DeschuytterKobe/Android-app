@@ -50,7 +50,6 @@ class ProfileDetailFragment : Fragment() {
         imageView = view.profile_image_picture
         uUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         var userId = SecureFileHandle(context, AuthTokenSecureFile()).file.userId
-        Log.d("test0", "${userId}")
 
         uUserViewModel.getUserById(userId).observe(viewLifecycleOwner) {
 

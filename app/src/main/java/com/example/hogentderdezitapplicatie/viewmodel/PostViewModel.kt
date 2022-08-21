@@ -23,8 +23,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         SecureFileHandle(application.applicationContext, AuthTokenSecureFile()).file.userId
     )
 
-//        val posts : LiveData<List<Post>> =  pRepository.readAllPosts
-//        val postsFromUser = pRepository.readPostsFromUser
+
 
 
     fun readAllPosts(): LiveData<List<Post>> {

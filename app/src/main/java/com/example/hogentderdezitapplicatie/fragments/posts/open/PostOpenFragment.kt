@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -50,7 +51,7 @@ class PostOpenFragment : Fragment() {
     ): View? {
 
 
-        // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_post_open, container, false)
 
         mPostViewModel = ViewModelProvider(this).get(PostOpenViewModel::class.java)
@@ -62,7 +63,7 @@ class PostOpenFragment : Fragment() {
         val recyclerView = view.reactionRecyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        recyclerView.addItemDecoration(spacingItemsDecorator)
+
 
         if (SecureFileHandle(context, AuthTokenSecureFile()).file.userId == 3) {
             updatePost(false)
@@ -77,11 +78,12 @@ class PostOpenFragment : Fragment() {
             })
 
 
-
-        view.open_postTitle.setText(args.openCurrentPost.title)
+        if (SecureFileHandle(context, AuthTokenSecureFile()).file.userId != args.openCurrentPost.userId) {
+            view.open_post_like.isVisible = false
+            view.EditPostButton.isVisible = false
+        }
         view.open_postDescription.setText(args.openCurrentPost.description)
 
-        Log.d("erzerzer", args.openCurrentPost.link)
 
         val textViewee = "https://www."
         view.open_postLink.setText(args.openCurrentPost.link)
@@ -93,7 +95,6 @@ class PostOpenFragment : Fragment() {
             .setBold(false)
             .setOnClickListener {
                 val url = args.openCurrentPost.link
-                Log.d("test", url)
                 val urlIntent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse(textViewee + url)
@@ -107,14 +108,7 @@ class PostOpenFragment : Fragment() {
 
 
         view.img_open_post.load(args.openCurrentPost.picture)
-//        button.setOnClickListener {
-//            val url = editText.text.toString()
-//            val urlIntent = Intent(
-//                Intent.ACTION_VIEW,
-//                Uri.parse(textView.text.toString() + url)
-//            )
-//            startActivity(urlIntent)
-//        }
+
 
         view.AddReactionButton.setOnClickListener {
             insertDataToDatabase()
@@ -122,7 +116,6 @@ class PostOpenFragment : Fragment() {
 
         view.open_post_like.setOnClickListener {
             likePost()
-            Log.d("clcked on post like", "yeet")
         }
 
 

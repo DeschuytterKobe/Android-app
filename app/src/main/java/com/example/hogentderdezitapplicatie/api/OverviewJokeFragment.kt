@@ -32,12 +32,9 @@ class OverviewJokeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentOverviewJokeBinding.inflate(inflater)
-        Log.d("in overviewJokeFragment", "yes")
 //        val view = inflater.inflate(R.layout.fragment_overview_joke, container, false)
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        Log.d("test ", "big zaezaeaze")
         binding.refreshApiCall.setOnClickListener {
-            Log.d("test ", "big test")
             viewModel.getJokeProperties()
 
 

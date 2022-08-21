@@ -51,7 +51,7 @@ class PostListFragment : Fragment() {
 
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        recyclerView.addItemDecoration(spacingItemsDecorator)
+
 
             Log.e("DBG", "in postlist fragementbase before creation postvm");
 
@@ -133,15 +133,7 @@ class PostListFragment : Fragment() {
         }
 
     }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        val adapter = PostListAdapter(uUserViewModel)
-//
-//        mPostViewModel.readAllPostsFromUser(1 ).observe(viewLifecycleOwner, Observer { post ->
-//            adapter.setData(post)
-//        })
-//    }
+
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

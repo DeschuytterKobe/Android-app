@@ -72,21 +72,17 @@ class addPostFragment : Fragment() {
     }
 
     private fun insertPostDataToDatabase() {
-//        val int = SecureFileHandle(context,  AuthTokenSecureFile()).file.userId
+
 
         var userId = arguments?.getInt("userId")
         var bundle = Bundle()
         if (userId != null) {
             bundle.putInt("userId", userId)
         }
-        Log.d("main", userId.toString())
-//        val title = add_postTitle.text.toString()
+
         val description = add_postDescription.text.toString()
         val link = add_postLink.text.toString()
-//        val image = add_image_to_post
-        Log.d("tonen van link", link)
-        //shcrijf deze bytes weg op de gsm naar een file
-        //onthou de url
+
         val bytes = (imageView.drawable as BitmapDrawable).bitmap
 
         if (inputCheck("title", description)) {

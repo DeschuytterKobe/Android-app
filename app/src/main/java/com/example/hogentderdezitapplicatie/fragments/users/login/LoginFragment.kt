@@ -37,7 +37,6 @@ class LoginFragment : AppCompatActivity() {
     private var loggedin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("in oncreate", "3")
         super.onCreate(savedInstanceState)
 
 
@@ -64,17 +63,7 @@ class LoginFragment : AppCompatActivity() {
 
     }
 
-    //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu)
-//        inflater?.inflate(R.menu.overflow_menu,menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return NavigationUI.onNavDestinationSelected(item!!,requireView().findNavController())||
-//                return super.onOptionsItemSelected(item)
-//    }
     private fun login(userId: Int) {
-        Log.d("in oncreate", "3")
         WebAuthProvider
             .login(account)
             .withScheme(getString(R.string.com_auth0_scheme))
@@ -91,13 +80,11 @@ class LoginFragment : AppCompatActivity() {
                     val isLoggedIn = cachedCredentials != null
                     loggedin = true
                     binding.buttonLogout.isEnabled = isLoggedIn
-                    Log.d("", cachedCredentials.toString())
                     showSnackBar(getString(R.string.login_success_message, credentials.accessToken))
 
                     val securefile = SecureFileHandle(applicationContext, AuthTokenSecureFile())
 
                     securefile.file.fill(cachedCredentials, userId);
-                    Log.d("in login with userId", userId.toString())
 
                     val navigateToPostActivity =
                         Intent(applicationContext, PostActivity::class.java)

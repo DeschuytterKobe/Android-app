@@ -38,7 +38,6 @@ class PostUpdateFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_post_update, container, false)
 
-        Log.d("1", "In de postupdatefragment")
 
         mPostViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
@@ -46,19 +45,13 @@ class PostUpdateFragment : Fragment() {
         var postId = arguments?.getInt("postId")
 
         mPostViewModel.readPostWithId(postId).observe(viewLifecycleOwner) {
-            view.update_postTitle.setText(it.title)
             view.update_postDescription.setText(it.description)
             view.update_postLink.setText(it.link)
             view.update_post_image.setImageBitmap(it.picture)
             postRead = it.read
             postAnswered = it.answered
         }
-        //TODO laad van database en vull viemodel
 
-
-//            view.update_postTitle.setText(queryResult.title)
-//            view.update_postDescription.setText(queryResult.description)
-//            view.update_postLink.setText(queryResult.link)
 
 
         view.updatePost_btn.setOnClickListener {
@@ -74,19 +67,18 @@ class PostUpdateFragment : Fragment() {
     }
 
     private fun updatePost() {
-        val title = update_postTitle.text.toString()
         val description = update_postDescription.text.toString()
         val link = update_postLink.text.toString()
         val image = update_post_image
         val bytes = (image.drawable as BitmapDrawable).bitmap
 
-        if (inputCheck(title, description)) {
+        if (inputCheck("title", description)) {
             lifecycleScope.launch {
                 val updatePost = arguments?.getInt("postId")?.let {
                     Post(
                         it,
                         SecureFileHandle(context, AuthTokenSecureFile()).file.userId,
-                        title,
+                        "",
                         description,
                         link,
                         Date(),

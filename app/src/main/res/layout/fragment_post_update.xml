@@ -8,25 +8,14 @@
     tools:context=".fragments.posts.update.PostUpdateFragment">
 
     <EditText
-        android:id="@+id/update_postTitle"
-        android:layout_width="180dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="52dp"
-        android:text="Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
         android:id="@+id/update_postDescription"
         android:layout_width="202dp"
         android:layout_height="155dp"
-        android:layout_marginTop="66dp"
         android:text="postDescription"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.435"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update_postTitle" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <EditText
         android:id="@+id/update_postLink"

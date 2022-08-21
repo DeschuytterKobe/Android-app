@@ -29,16 +29,13 @@ class PostListAdapter(userViewModel: UserViewModel) :
     private lateinit var mPostViewModel: PostViewModel
     private var uUserViewModel = userViewModel
 
-    private lateinit var context: Context;
+    private lateinit var context: Context
 
-    class MyPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-
-    }
+    class MyPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPostViewHolder {
 
-        context = parent.context;
+        context = parent.context
         return MyPostViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.custom_row_post, parent, false)
         )
@@ -46,25 +43,8 @@ class PostListAdapter(userViewModel: UserViewModel) :
 
     }
 
-
     override fun onBindViewHolder(holder: MyPostViewHolder, position: Int) {
-
-
         val currentItem = postList[position]
-
-//        uUserViewModel.getUserByIdForList.observe(viewLifecycleOwner, Observer { post ->
-//            adapter.setData(post)
-////        })
-
-//        holder.itemView.postLikeButton.setOnClickListener{
-//            val updatePost = Post(currentItem.id,currentItem.userId,currentItem.title,currentItem.description,currentItem.link,currentItem.postDate,1,currentItem.picture,currentItem.read,currentItem.answered)
-//            Thread{
-//                mPostViewModel.updatePost(updatePost)
-//            }.start()
-//
-//
-//        }
-
         holder.itemView.postRowLayout.setOnClickListener {
             val action =
                 PostListFragmentDirections.actionPostListFragment2ToPostOpenFragment(
@@ -72,8 +52,6 @@ class PostListAdapter(userViewModel: UserViewModel) :
                 )
             holder.itemView.findNavController().navigate(action)
         }
-        // CoroutineScope(Dispatchers.Default).launch {
-
 
         GlobalScope.launch {
             val user = uUserViewModel.getUserByIdForList(currentItem.userId)
@@ -81,60 +59,19 @@ class PostListAdapter(userViewModel: UserViewModel) :
                 holder.itemView.postlist_user_firstname.text = user.firstName
             }
         }
-
-//            Thread{
-//
-//
-////                    laad file van uripath door user.profilePhoteUri
-//
-////                    val bitmap =
-////                        ImageSaver(context).setFileName(user.profilePhotoUri).setDirectoryName("images")
-////                            .load()
-////                    holder.itemView.postlist_user_profilephoto.setImageBitmap(bitmap)
-//
-//
-//
-//
-//            }.start()
-
-
         val sdf = SimpleDateFormat("dd/M/yyyy : HH:mm")
         val currentDate = sdf.format(currentItem.postDate)
-        //holder.itemView.postTitle_txt.text = currentItem.title
         holder.itemView.postDescription_txt.text = currentItem.description
         holder.itemView.postDate_txt.text = currentDate
         if (SecureFileHandle(context, AuthTokenSecureFile()).file.userId == 3) {
+
             holder.itemView.postLikeButton.isVisible = false
-            if (currentItem.read) {
-                holder.itemView.postlist_seen_image.isVisible = true
-            } else holder.itemView.postlist_seen_image.isVisible = false
-            if (currentItem.answered) {
-                holder.itemView.postlist_answered_image.isVisible = true
-            } else holder.itemView.postlist_answered_image.isVisible = false
+            holder.itemView.postlist_seen_image.isVisible = currentItem.read
+            holder.itemView.postlist_answered_image.isVisible = currentItem.answered
         } else {
-            if (currentItem.liked == 1) {
-
-                holder.itemView.postLikeButton.isVisible = true
-            } else holder.itemView.postLikeButton.isVisible = false
-            if (currentItem.read) {
-                holder.itemView.postlist_seen_image.isVisible = true
-            } else holder.itemView.postlist_seen_image.isVisible = false
-            if (currentItem.answered) {
-                holder.itemView.postlist_answered_image.isVisible = true
-            } else holder.itemView.postlist_answered_image.isVisible = false
-
-
-//                } catch (e: Exception) {
-//                    print(e)
-//                }
-//            }.start();
-//        } catch (e: Exception) {
-//            print(e)
-//        }
-
-
-            //    }
-
+            holder.itemView.postLikeButton.isVisible = currentItem.liked == 1
+            holder.itemView.postlist_seen_image.isVisible = currentItem.read
+            holder.itemView.postlist_answered_image.isVisible = currentItem.answered
         }
     }
 

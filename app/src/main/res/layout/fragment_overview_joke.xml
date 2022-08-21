@@ -39,7 +39,7 @@
             android:layout_width="152dp"
             android:layout_height="84dp"
             android:layout_marginBottom="40dp"
-            android:text="Button"
+            android:text="Next"
             app:layout_constraintBottom_toBottomOf="@+id/testeee"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.868"

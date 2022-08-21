@@ -66,12 +66,12 @@ class ReactionListAdapter(
                 currentItem.reactionDate
             )
             editReaction(newReaction)
-//            holder.itemView.reaction_content.setText(newContent)
+
         }
         holder.itemView.post_reaction_delete_btn.setOnClickListener {
             deleteReaction(currentItem)
         }
-//        holder.itemView.postId_txt.text = currentItem.id.toString()
+
         holder.itemView.idktesting.setBackgroundColor(Color.rgb(214, 187, 76))
         val sdf = SimpleDateFormat("dd/M/yyyy")
         val reactionPostDate = sdf.format(currentItem.reactionDate)

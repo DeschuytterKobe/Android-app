@@ -36,14 +36,11 @@ class JokeOverviewViewModel : ViewModel() {
      */
     // TODO (07) Update getMarsRealEstateProperties to handle List<MarsProperty>
     fun getJokeProperties() {
-        Log.d("in getjokers", "from jokeviewmodel")
         coroutineScope.launch {
             var getPropertiesDeferred = JokeApi.retrofitService.getProperties()
-            Log.d("in getjokers", "2de")
             try {
                 var listResult = getPropertiesDeferred.await()
                 _response.value = "${listResult.joke}"
-                Log.d("in viewModel", "${_response.value}")
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
